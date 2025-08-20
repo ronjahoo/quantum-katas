@@ -1,0 +1,1233 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Quantum.IQSharp.AzureClient</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.OutputFormat">
+            <summary>
+            Supported output data formats for QIR.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClient">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.IsQuantumExecutionTarget(System.String)">
+            <summary>
+            Returns whether a target ID is meant for quantum execution since not all targets
+            exposed by providers are meant for that, such as QIO targets. More
+            specifically, the Microsoft provider exposes targets that are not meant for
+            quantum execution and the only ones meant for that start with "microsoft.estimator".
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.ActiveWorkspace">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.ActiveTarget">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.TargetCapability">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.#ctor(Microsoft.Jupyter.Core.IExecutionEngine,Microsoft.Quantum.IQSharp.IReferences,Microsoft.Quantum.IQSharp.AzureClient.IEntryPointGenerator,Microsoft.Quantum.IQSharp.IMetadataController,Microsoft.Quantum.IQSharp.AzureClient.IAzureFactory,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.AzureClient.AzureClient},Microsoft.Quantum.IQSharp.IEventService,Microsoft.Quantum.IQSharp.IWorkspace,System.IServiceProvider,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource)">
+            <summary>
+            Creates an <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClient"/> object that provides methods for
+            interacting with an Azure Quantum workspace.
+            </summary>
+            <param name="engine">The execution engine for interaction with Jupyter.</param>
+            <param name="references">The references to use when compiling Q# code.</param>
+            <param name="entryPointGenerator">The generator of entry points for Azure Quantum execution.</param>
+            <param name="metadataController">The metadata controller to use when compiling Q# code.</param>
+            <param name="azureFactory">A Factory class to create instance of Azure Quantum classes.</param>
+            <param name="logger">The logger to use for diagnostic information.</param>
+            <param name="eventService">The event service for the IQ# kernel.</param>
+            <param name="workspace">The service for the active IQ# workspace.</param>
+            <param name="serviceProvider">A service provider to create needed components.</param>
+            <param name="configurationSource">The service for configuration data.</param>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.ActiveTargetId">
+            <inheritdoc />
+        </member>
+        <member name="E:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.ConnectToWorkspace">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.ConnectAsync(Microsoft.Jupyter.Core.IChannel,System.String,System.String,System.String,System.String,System.String,Microsoft.Azure.Quantum.Authentication.CredentialType,System.Nullable{System.Threading.CancellationToken})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.GetConnectionStatusAsync(Microsoft.Jupyter.Core.IChannel,System.Nullable{System.Threading.CancellationToken})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.SubmitJobAsync(Microsoft.Jupyter.Core.IChannel,Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext,System.Nullable{System.Threading.CancellationToken})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.ExecuteJobAsync(Microsoft.Jupyter.Core.IChannel,Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext,System.Nullable{System.Threading.CancellationToken})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.GetActiveTargetAsync(Microsoft.Jupyter.Core.IChannel,System.Nullable{System.Threading.CancellationToken})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.SetActiveTargetAsync(Microsoft.Jupyter.Core.IChannel,System.String,System.Nullable{System.Threading.CancellationToken})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.GetJobResultAsync(Microsoft.Jupyter.Core.IChannel,System.String,System.Nullable{System.Threading.CancellationToken})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.GetJobStatusAsync(Microsoft.Jupyter.Core.IChannel,System.String,System.Nullable{System.Threading.CancellationToken})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.GetJobListAsync(Microsoft.Jupyter.Core.IChannel,System.String,System.Nullable{System.Int32},System.Nullable{System.Threading.CancellationToken})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.GetQuotaListAsync(Microsoft.Jupyter.Core.IChannel,System.Nullable{System.Threading.CancellationToken})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.ClearActiveTarget">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClient.TrySetTargetCapability(Microsoft.Jupyter.Core.IChannel,System.String,Microsoft.Quantum.QsCompiler.TargetCapability@)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError">
+            <summary>
+            Describes possible error results from <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> methods.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.UnknownError">
+            <summary>
+            Method completed with an unknown error.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.NotConnected">
+            <summary>
+            No connection has been made to any Azure Quantum workspace.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.NoTarget">
+            <summary>
+            A target has not yet been configured for job submission.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.InvalidTarget">
+            <summary>
+            The specified target is not valid for job submission.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.JobNotFound">
+            <summary>
+            A job meeting the specified criteria was not found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.JobNotCompleted">
+            <summary>
+            The result of a job was requested, but the job has not yet completed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.JobOutputDownloadFailed">
+            <summary>
+            The job output failed to be downloaded from the Azure storage location.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.JobOutputDisplayFailed">
+            <summary>
+            The job failed to be displayed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.NoOperationName">
+            <summary>
+            No Q# operation name was provided where one was required.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.UnrecognizedOperationName">
+            <summary>
+            The specified Q# operation name is not recognized.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.InvalidEntryPoint">
+            <summary>
+            The specified Q# operation cannot be used as an entry point.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.JobSubmissionFailed">
+            <summary>
+            The Azure Quantum job submission failed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.AuthenticationFailed">
+            <summary>
+            Authentication with the Azure service failed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.WorkspaceNotFound">
+            <summary>
+            A workspace meeting the specified criteria was not found.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.NoWorkspaceLocation">
+            <summary>
+            A workspace was provided without a location.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.InvalidWorkspaceLocation">
+            <summary>
+            A workspace was provided with an invalid location.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError.JobFailedOrCancelled">
+            <summary>
+            The Azure Quantum job failed or was cancelled.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget">
+            <summary>
+                An execution target for Q# jobs on Azure Quantum.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.#ctor(System.String)">
+            <summary>
+                Constructs an execution target from its target ID.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.TargetId">
+            <summary>
+                 A short string used to identify the target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.PackageName">
+            <summary>
+                The name of the NuGet package required to compile against this
+                target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.DefaultCapability">
+            <summary>
+                Returns the maximum level of capability supported by this target.
+                Any other target capability must be subsumed by this maximum
+                in order to be supported by this target.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.GetMaximumCapability(System.String)">
+            <summary>
+                Returns the maximum level of capability supported by the target.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.SupportsCapability(Microsoft.Quantum.QsCompiler.TargetCapability)">
+            <summary>
+                Returns <c>true</c> if this target supports a given capability
+                level.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.TryGetQirSubmitter(Microsoft.Azure.Quantum.IWorkspace,System.String,Microsoft.Quantum.QsCompiler.TargetCapability,Microsoft.Quantum.Runtime.Submitters.IQirSubmitter@)">
+            <summary>
+                 Attempts to get a <see cref="T:Microsoft.Quantum.Runtime.Submitters.IQirSubmitter"/> instance appropriate
+                 for use with this target.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.IsValid(Microsoft.Azure.Quantum.TargetStatusInfo)">
+            <summary>
+            Returns true, if the provider for the given target is a known provider 
+            capable of running Q# applications.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.IsValid(System.String)">
+            <summary>
+            Returns true, if the provider for the given target is a known provider 
+            capable of running Q# applications.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.Create(Microsoft.Azure.Quantum.TargetStatusInfo)">
+            <summary>
+            It creates the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget" /> instance for the given TargetStatusInfo. If the TargetStatusInfo
+            is from a Mock, then it returns a Mock AzureExecutionTarget, otherwise it creates the instance 
+            based on the corresponding target id.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.Create(System.String)">
+            <summary>
+            It creates the AzureExecutionTarget instance for the given targetId.
+            </summary>
+            <returns>
+                An instance of <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget"/> if
+                <param name="targetId" /> describes a target for a valid
+                provider, and <c>null</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureExecutionTarget.GetProvider(System.String)">
+            <summary>
+                Gets the Azure Quantum provider corresponding to the given execution target.
+            </summary>
+            <param name="targetId">The Azure Quantum execution target ID.</param>
+            <returns>
+                The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureProvider"/> enum value representing the
+                provider, or <c>null</c> if <paramref name="targetId"/> does
+                not describe a valid provider.
+            </returns>
+            <remarks>
+                Valid target IDs are structured as "provider.target".
+                For example, "ionq.simulator" or "quantinuum.qpu".
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.AzureFactory">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureFactory.CreateWorkspace(System.String,System.String,System.String,System.String,Azure.Core.TokenCredential,Azure.Quantum.QuantumJobClientOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureFactory.CreateMachine(Microsoft.Azure.Quantum.IWorkspace,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext">
+            <summary>
+            Represents the configuration settings for a job submission to Azure Quantum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext.FriendlyName">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext.Shots">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext.OperationName">
+            <summary>
+                The Q# operation name to be executed as part of this job.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext.InputParams">
+            <summary>
+                Provider-specific job parameters to be passed to the execution target, expressed as one or more JSON {"key":"value",...} pairs.
+            </summary>
+            <remarks>
+                These parameters apply to <c>%azure.execute</c> and <c>%azure.submit</c>. The JSON may not contain separating spaces when used in a Jupyter notebook. 
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext.InputParameters">
+            <summary>
+                The input parameters to be provided to the specified Q# operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext.ExecutionTimeout">
+            <summary>
+                The execution timeout for the job, expressed in seconds.
+            </summary>
+            <remarks>
+                This setting only applies to <c>%azure.execute</c>. It is ignored for <c>%azure.submit</c>.
+                The timeout determines how long the IQ# kernel will wait for the job to complete;
+                the Azure Quantum job itself will continue to execute until it is completed.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext.ExecutionPollingInterval">
+            <summary>
+                The polling interval, in seconds, to check for job status updates
+                while waiting for an Azure Quantum job to complete execution.
+            </summary>
+            <remarks>
+                This setting only applies to <c>%azure.execute</c>. It is ignored for <c>%azure.submit</c>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext.Parse(System.String)">
+            <summary>
+                Parses the input from a magic command into an <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext"/> object
+                suitable for job submission via <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.EntryPoint">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.EntryPoint.QirStream">
+            <inheritdoc/>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.EntryPoint.TargetCapability">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.EntryPoint.#ctor(System.Object,System.Type,System.Type,Microsoft.Quantum.IQSharp.OperationInfo,Microsoft.Extensions.Logging.ILogger,Microsoft.Quantum.IQSharp.IEventService,System.IO.Stream,Microsoft.Quantum.QsCompiler.TargetCapability)">
+            <summary>
+            Creates an object used to submit jobs to Azure Quantum.
+            </summary>
+            <param name="entryPointInfo">Must be an <see cref="T:Microsoft.Quantum.Simulation.Core.EntryPointInfo`2"/> object with type
+            parameters specified by the types in the <c>entryPointInputbeginWords</c> argument.</param>
+            <param name="inputType">Specifies the input parameter type for the
+            <see cref="T:Microsoft.Quantum.Simulation.Core.EntryPointInfo`2"/> object provided as the <c>entryPointInfo</c> argument.</param>
+            <param name="outputType">Specifies the output parameter type for the
+            <see cref="T:Microsoft.Quantum.Simulation.Core.EntryPointInfo`2"/> object provided as the <c>entryPointInfo</c> argument.</param>
+            <param name="operationInfo">Information about the Q# operation to be used as the entry point.</param>
+            <param name="logger">Logger used to report internal diagnostics.</param>
+            <param name="eventService">EventService used to report telemetry.</param>
+            <param name="qirStream">
+                Stream from which QIR bitcode for the entry point can be read.
+            </param>
+            <param name="targetCapability">
+                The target capability which the QIR was generated for.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.EntryPoint.SubmitAsync(Microsoft.Quantum.Runtime.IQuantumMachine,Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.EntryPoint.SubmitAsync(Microsoft.Quantum.Runtime.Submitters.IQirSubmitter,Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.EntryPointGenerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.EntryPointGenerator.Resolve(System.Runtime.Loader.AssemblyLoadContext,System.Reflection.AssemblyName)">
+            <summary>
+            Because the assemblies are loaded into memory, we need to provide this method to the AssemblyLoadContext
+            such that the Workspace assembly or this assembly is correctly resolved when it is executed for simulation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.EntryPointGenerator.Generate(System.String,System.String,Microsoft.Quantum.QsCompiler.TargetCapability,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.IEntryPoint">
+            <summary>
+            Represents a Q# entry point that can be submitted
+            for execution to Azure Quantum.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IEntryPoint.SubmitAsync(Microsoft.Quantum.Runtime.IQuantumMachine,Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext,System.Threading.CancellationToken)">
+            <summary>
+            Submits the entry point for execution to Azure Quantum.
+            </summary>
+            <param name="machine">The <see cref="T:Microsoft.Quantum.Runtime.IQuantumMachine"/> object representing the job submission target.</param>
+            <param name="submissionContext">The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext"/> object representing the submission context for the job.</param>
+            <param name="cancellationToken">Cancellation token used to interrupt this submission.</param>
+            <returns>The details of the submitted job.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IEntryPoint.SubmitAsync(Microsoft.Quantum.Runtime.Submitters.IQirSubmitter,Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext,System.Threading.CancellationToken)">
+            <summary>
+            Submits the entry point for execution to Azure Quantum.
+            </summary>
+            <param name="submitter">The <see cref="T:Microsoft.Quantum.Runtime.Submitters.IQirSubmitter"/> object representing the job submission target.</param>
+            <param name="submissionContext">The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext"/> object representing the submission context for the job.</param>
+            <param name="cancellationToken">Cancellation token used to interrupt this submission.</param>
+            <returns>The details of the submitted job.</returns>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.IEntryPoint.QirStream">
+            <summary>
+            The stream from which QIR bitcode for the entry point can be read.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.IEntryPoint.TargetCapability">
+            <summary>
+            The target capability which the QIR was generated for.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.IEntryPointGenerator">
+            <summary>
+            This service is capable of generating entry points for
+            job submission to Azure Quantum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.IEntryPointGenerator.WorkspaceAssemblies">
+            <summary>
+            Gets the compiled workspace assemblies for the most recently-generated entry point.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.IEntryPointGenerator.SnippetsAssemblyInfo">
+            <summary>
+            Gets the compiled snippets assembly for the most recently-generated entry point.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.IEntryPointGenerator.EntryPointAssemblyInfo">
+            <summary>
+            Gets the compiled entry point assembly for the most recently-generated entry point.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.IEntryPointGenerator.References">
+            <summary>
+            Gets the references used for compilation of the entry point assembly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IEntryPointGenerator.Generate(System.String,System.String,Microsoft.Quantum.QsCompiler.TargetCapability,System.Boolean)">
+            <summary>
+            Compiles an assembly and returns the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.EntryPoint"/> object
+            representing an entry point that wraps the specified operation.
+            </summary>
+            <param name="operationName">The name of the operation to wrap in an entry point.</param>
+            <param name="executionTarget">The intended execution target for the compiled entry point.</param>
+            <param name="capability">The capability of the intended execution target.</param>
+            <param name="generateQir">When <c>true</c>, uses QIR to generate the entry point.</param>
+            <returns>The generated entry point.</returns>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.Extensions">
+            <summary>
+                 Extension methods to be used with various IQ# and AzureClient objects.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.Extensions.AZURE_QUANTUM_ENV">
+            <summary>
+                The name of the environment variable used by Python tests
+                to indicate the Azure Environment to use.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.AzureClient.Extensions.MOCK_ENVIRONMENT">
+            <summary>
+               Value of the environment variable used by Python tests
+                to indicate to use Mocks for Azure Quantum instances.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.Extensions.AddAzureClient(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+                Adds services required for the AzureClient to a given service collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.Extensions.ToExecutionResult(Microsoft.Quantum.IQSharp.AzureClient.AzureClientError)">
+            <summary>
+                 Encapsulates a given <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError"/> as the result of an execution.
+            </summary>
+            <param name="azureClientError">
+                 The result of an IAzureClient API call.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.Extensions.ToExecutionResult(System.Threading.Tasks.Task{Microsoft.Quantum.IQSharp.AzureClient.AzureClientError})">
+            <summary>
+                 Encapsulates a given <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError"/> as the result of an execution.
+            </summary>
+            <param name="task">
+                 A task which will return the result of an IAzureClient API call.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.Extensions.AsEnumerableOf``1(System.Object)">
+            <summary>
+                Returns the provided argument as an enumeration of the specified type.
+            </summary>
+            <returns>
+                If the argument is already an <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the specified type,
+                the argument is returned. If the argument is of type <c>T</c>, then an 
+                enumeration is returned with this argument as the only element.
+                Otherwise, null is returned.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.Extensions.Matches(Microsoft.Azure.Quantum.CloudJob,System.String)">
+            <summary>
+                Determines whether the given <see cref="T:Microsoft.Azure.Quantum.CloudJob"/> matches the given <c>filter</c>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.Extensions.Log(System.Exception,Microsoft.Jupyter.Core.IChannel,Microsoft.Extensions.Logging.ILogger,System.String)">
+            <summary>
+                 Writes an exception to a logger and emits it to the stderr stream
+                 of a Jupyter display channel.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.Extensions.IsPythonUserAgent(Microsoft.Quantum.IQSharp.IMetadataController)">
+            <summary>
+                 Uses the given metadata controller to check if the current
+                 client is known to be a Python user agent.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.ConnectToWorkspaceEventArgs">
+            <summary>
+            List of arguments for the event that is triggered when the user tries 
+            to connect to an Azure Quantum Workspace
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.ConnectToWorkspaceEventArgs.#ctor(Microsoft.Jupyter.Core.ExecuteStatus,System.Nullable{Microsoft.Quantum.IQSharp.AzureClient.AzureClientError},System.String,System.Boolean,Microsoft.Azure.Quantum.Authentication.CredentialType,System.TimeSpan)">
+            <summary>
+            Default contructor.
+            </summary>
+            <param name="status">The status of the connection after calling Connect</param>
+            <param name="error">If an error happen, the error code.</param>
+            <param name="location">Location of the workspace connecting to.</param>
+            <param name="useCustomStorage">True if the user provides a custom storage connection.</param>
+            <param name="credentialType">The type of credentials used to authenticate with Azure.</param>
+            <param name="duration">How long the action took.</param>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.ConnectToWorkspaceEventArgs.Status">
+            <summary>
+            The connection status. Can be "success" or "error"
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.ConnectToWorkspaceEventArgs.Error">
+            <summary>
+            If an error happened during connection, the error code.
+            Otherwise, <c>null</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.ConnectToWorkspaceEventArgs.Location">
+            <summary>
+            The region (location) we tried to connect to.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.ConnectToWorkspaceEventArgs.UseCustomStorage">
+            <summary>
+            True if the user provides a custom storage connection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.ConnectToWorkspaceEventArgs.CredentialType">
+            <summary>
+            The type of credentials used to authenticate with Azure.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.ConnectToWorkspaceEventArgs.Duration">
+            <summary>
+            The total time it took to connect.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient">
+            <summary>
+            This service is capable of connecting to Azure Quantum workspaces
+            and submitting jobs.
+            </summary>
+        </member>
+        <member name="E:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.ConnectToWorkspace">
+            <summary>
+            This event is triggered when a user connects to an Azure Quantum Workspace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.ConnectAsync(Microsoft.Jupyter.Core.IChannel,System.String,System.String,System.String,System.String,System.String,Microsoft.Azure.Quantum.Authentication.CredentialType,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Connects to the specified Azure Quantum workspace, first logging into Azure if necessary.
+            </summary>
+            <returns>
+            The list of execution targets available in the Azure Quantum workspace.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.GetConnectionStatusAsync(Microsoft.Jupyter.Core.IChannel,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Gets the current connection status to an Azure Quantum workspace.
+            </summary>
+            <returns>
+            The list of execution targets available in the Azure Quantum workspace,
+            or an error if the Azure Quantum workspace connection has not yet been created.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.SubmitJobAsync(Microsoft.Jupyter.Core.IChannel,Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Submits the specified Q# operation as a job to the currently active target.
+            </summary>
+            <returns>
+            Details of the submitted job, or an error if submission failed.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.ExecuteJobAsync(Microsoft.Jupyter.Core.IChannel,Microsoft.Quantum.IQSharp.AzureClient.AzureSubmissionContext,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Executes the specified Q# operation as a job to the currently active target
+            and waits for execution to complete before returning.
+            </summary>
+            <returns>
+            The result of the executed job, or an error if execution failed.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.SetActiveTargetAsync(Microsoft.Jupyter.Core.IChannel,System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Sets the specified target for job submission.
+            </summary>
+            <returns>
+            Success if the target is valid, or an error if the target cannot be set.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.ClearActiveTarget">
+            <summary>
+            Clears the specified target for job submission.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.GetActiveTargetAsync(Microsoft.Jupyter.Core.IChannel,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Gets the currently specified target for job submission.
+            </summary>
+            <returns>
+            The target ID.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.GetJobResultAsync(Microsoft.Jupyter.Core.IChannel,System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Gets the result of a specified job.
+            </summary>
+            <returns>
+            The job result corresponding to the given job ID,
+            or for the most recently-submitted job if no job ID is provided.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.GetJobStatusAsync(Microsoft.Jupyter.Core.IChannel,System.String,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Gets the status of a specified job.
+            </summary>
+            <returns>
+            The job status corresponding to the given job ID,
+            or for the most recently-submitted job if no job ID is provided.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.GetJobListAsync(Microsoft.Jupyter.Core.IChannel,System.String,System.Nullable{System.Int32},System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Gets a list of all jobs in the current Azure Quantum workspace.
+            </summary>
+            <returns>
+            A list of all jobs in the current workspace, optionally filtered
+            to jobs with fields containing <c>filter</c> using a case-insensitive
+            comparison.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.GetQuotaListAsync(Microsoft.Jupyter.Core.IChannel,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Gets a list of all jobs in the current Azure Quantum workspace.
+            </summary>
+            <returns>
+            A list of all jobs in the current workspace, optionally filtered
+            to jobs with fields containing <c>filter</c> using a case-insensitive
+            comparison.
+            </returns>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.ActiveTargetId">
+            <summary>
+                 Returns a string indicating the current target ID if one is
+                 set, or <c>null</c> if no target is set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.ActiveTarget">
+            <summary>
+                Returns the current execution target if one is set, or
+                <c>null</c> if no target is set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.TargetCapability">
+            <summary>
+                Returns the current target capability level if one is set.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.ActiveWorkspace">
+            <summary>
+                Returns the active workspace connected to this client, or
+                <c>null</c> if none is set.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient.TrySetTargetCapability(Microsoft.Jupyter.Core.IChannel,System.String,Microsoft.Quantum.QsCompiler.TargetCapability@)">
+            <summary>
+                Attempts to set the current target capability given the name
+                of the given capability.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureFactory">
+            <summary>
+            This service is used to create instances of classes from the AzureQuantum packages.
+            Mostly used to support Mock instances.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureFactory.CreateWorkspace(System.String,System.String,System.String,System.String,Azure.Core.TokenCredential,Azure.Quantum.QuantumJobClientOptions)">
+            <summary>
+            Creates an instance of an Azure Quantum Workspace client
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.IAzureFactory.CreateMachine(Microsoft.Azure.Quantum.IWorkspace,System.String,System.String)">
+            <summary>
+            Creates an instance of an Azure Quantum Machine
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientMagicBase">
+            <summary>
+                Base class used for Azure Client magic commands.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureClientMagicBase.AzureClient">
+            <summary>
+                The object used by this magic command to interact with Azure.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClientMagicBase.#ctor(Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,System.String,Microsoft.Jupyter.Core.Documentation,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+                Constructs the Azure Client magic command with the specified keyword
+                and documentation.
+            </summary>
+            <param name="azureClient">The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> object used to interact with Azure.</param>
+            <param name="keyword">The name used to invoke the magic command.</param>
+            <param name="docs">Documentation describing the usage of this magic command.</param>
+            <param name="logger">Logger to be used for reporting issues from this magic command.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClientMagicBase.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClientMagicBase.RunCancellable(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClientMagicBase.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                Executes the magic command functionality for the given input.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.CapabilityMagic">
+            <summary>
+                A magic command that can be used to view or set target information for an Azure Quantum workspace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.CapabilityMagic.#ctor(Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.AzureClient.TargetMagic},Microsoft.Quantum.IQSharp.IMetadataController)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.CapabilityMagic"/> class.
+            </summary>
+            <param name="azureClient">
+            The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> object to use for Azure functionality.
+            </param>
+            <param name="logger">Logger instance for messages.</param>
+            <param name="controller">
+                Metadata controller used to identify Python versus standalone
+                clients. If <c>null</c>, standalone notebooks are assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.CapabilityMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                Sets or views the current target capability.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.ConnectMagic">
+            <summary>
+                A magic command that can be used to connect to an Azure workspace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.ConnectMagic.#ctor(Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.AzureClient.ConnectMagic})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.ConnectMagic"/> class.
+            </summary>
+            <param name="azureClient">
+            The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> object to use for Azure functionality.
+            </param>
+            <param name="config">Configuration Settings.</param>
+            <param name="logger">Logger instance for messages.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.ConnectMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                Connects to an Azure workspace given a subscription ID, resource group name,
+                workspace name, and connection string as a JSON-encoded object.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.ExecuteMagic">
+            <summary>
+                A magic command that can be used to submit jobs to an Azure Quantum workspace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.ExecuteMagic.#ctor(Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.AzureClient.ExecuteMagic})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.ExecuteMagic"/> class.
+            </summary>
+            <param name="azureClient">
+            The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> object to use for Azure functionality.
+            </param>
+            <param name="logger">Logger instance for messages.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.ExecuteMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                Executes a new job in an Azure Quantum workspace given a Q# operation
+                name that is present in the current Q# Jupyter workspace, and
+                waits for the job to complete before returning.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.JobsMagic">
+            <summary>
+                A magic command that can be used to list jobs in an Azure Quantum workspace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.JobsMagic.#ctor(Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.AzureClient.JobsMagic})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.JobsMagic"/> class.
+            </summary>
+            <param name="azureClient">
+            The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> object to use for Azure functionality.
+            </param>
+            <param name="logger">Logger instance for messages.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.JobsMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                Lists all jobs in the active workspace, optionally filtered by a provided parameter.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.OutputMagic">
+            <summary>
+                A magic command that can be used to connect to display the results of an Azure Quantum job.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.OutputMagic.#ctor(Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.AzureClient.OutputMagic})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.OutputMagic"/> class.
+            </summary>
+            <param name="azureClient">
+            The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> object to use for Azure functionality.
+            </param>
+            <param name="logger">Logger instance for messages.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.OutputMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                Displays the output of a given completed job ID, if provided,
+                or all jobs submitted in the current session.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.QuotaMagic">
+            <summary>
+                A magic command that can be used to list jobs in an Azure Quantum workspace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.QuotaMagic.#ctor(Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.AzureClient.QuotaMagic})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.QuotaMagic"/> class.
+            </summary>
+            <param name="azureClient">
+            The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> object to use for Azure functionality.
+            </param>
+            <param name="logger">Logger instance for messages.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.QuotaMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                Lists all jobs in the active workspace, optionally filtered by a provided parameter.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.StatusMagic">
+            <summary>
+                A magic command that can be used to connect to an Azure workspace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.StatusMagic.#ctor(Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.AzureClient.StatusMagic})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.StatusMagic"/> class.
+            </summary>
+            <param name="azureClient">
+            The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> object to use for Azure functionality.
+            </param>
+            <param name="logger">Logger instance for messages.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.StatusMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                Displays the status corresponding to a given job ID, if provided,
+                or the most recently-submitted job in the current session.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.SubmitMagic">
+            <summary>
+                A magic command that can be used to submit jobs to an Azure Quantum workspace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.SubmitMagic.#ctor(Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.AzureClient.SubmitMagic})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.SubmitMagic"/> class.
+            </summary>
+            <param name="azureClient">
+            The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> object to use for Azure functionality.
+            </param>
+            <param name="logger">Logger instance for messages.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.SubmitMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                Submits a new job to an Azure Quantum workspace given a Q# operation
+                name that is present in the current Q# Jupyter workspace.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.TargetMagic">
+            <summary>
+                A magic command that can be used to view or set target information for an Azure Quantum workspace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetMagic.#ctor(Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.AzureClient.TargetMagic},Microsoft.Quantum.IQSharp.IMetadataController)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.TargetMagic"/> class.
+            </summary>
+            <param name="azureClient">
+            The <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.IAzureClient"/> object to use for Azure functionality.
+            </param>
+            <param name="logger">Logger instance for messages.</param>
+            <param name="controller">
+                Metadata controller used to identify Python versus standalone
+                clients. If <c>null</c>, standalone notebooks are assumed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                Sets or views the target for job submission to the current Azure Quantum workspace.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.MockCostEstimate">
+            <summary>
+            This class is a wrapper of the Azure Quantum SDK data model class
+            `Azure.Quantum.Jobs.Models.CostEstimate`
+            The data model is auto-generated and the generated classes have immutable
+            properties (with only getters), and only internal constructors.
+            To allow us to mock the class and initialize objects for unit tests,
+            we use the MockHelper to instantiate from an internal constructor
+            and to set/initialize immutable properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.MockJobDetails">
+            <summary>
+            This class is a mock of the Azure Quantum SDK data model class
+            `Azure.Quantum.Jobs.Models.JobDetails`
+            The data model is auto-generated and the generated classes have immutable
+            properties (with only getters), and no way to initialize them.
+            To allow us to mock the class and initialize objects for unit tests,
+            we use the MockHelper to set/initialize immutable properties.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.MockHelper">
+            <summary>
+            This class is used to set immutable and unitializable properties present
+            in the Azure Quantum SDK data model.
+            The data model is auto-generated and the generated classes have immutable
+            properties (with only getters), and sometimes internal constructors and
+            no public constructors.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.MockQirSubmitter">
+            <param name="ExpectedArguments">The expected entry point arguments to the SubmitAsync method.</param>
+            <param name="ExpectedTargetCapability">The expected target capability to the SubmitAsync method.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.MockQirSubmitter.#ctor(System.Collections.Generic.IReadOnlyList{Microsoft.Quantum.Runtime.Argument},Microsoft.Quantum.QsCompiler.TargetCapability)">
+            <param name="ExpectedArguments">The expected entry point arguments to the SubmitAsync method.</param>
+            <param name="ExpectedTargetCapability">The expected target capability to the SubmitAsync method.</param>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.MockQirSubmitter.ExpectedArguments">
+            <summary>The expected entry point arguments to the SubmitAsync method.</summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.MockQirSubmitter.ExpectedTargetCapability">
+            <summary>The expected target capability to the SubmitAsync method.</summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.MockQirSubmitter.SubmitAsync(System.IO.Stream,System.String,System.Collections.Generic.IReadOnlyList{Microsoft.Quantum.Runtime.Argument},Microsoft.Quantum.Runtime.Submitters.SubmissionOptions)">
+            <summary>
+            Mocks a SubmitAsync call, checking that the given <paramref name="arguments" /> are a match to the expected arguments for this mock submitter.
+            This method also asserts that arguments equal the expected arguments passed into the constructor.
+            </summary>
+            <param name="qir">The QIR stream for the entry point.</param>
+            <param name="entryPoint">The name of the entry point.</param>
+            <param name="arguments">The arguments to the entry point. These will be compared against the expected arguments.</param>
+            <param name="options">Additional submission options.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.MocksAzureFactory">
+            <summary>
+            This service is used to create instances of classes from the AzureQuantum packages.
+            Mostly used to support Mock instances.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.MocksAzureFactory.CreateWorkspace(System.String,System.String,System.String,System.String,Azure.Core.TokenCredential,Azure.Quantum.QuantumJobClientOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.MocksAzureFactory.CreateMachine(Microsoft.Azure.Quantum.IWorkspace,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.Resources">
+            <summary>
+            This class contains resources that will eventually be exposed to localization.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorExtensions.ToDescription(Microsoft.Quantum.IQSharp.AzureClient.AzureClientError)">
+            <summary>
+                Returns the string value of the <see cref="T:System.ComponentModel.DescriptionAttribute"/> for the given
+                <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError"/> enumeration value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorExtensions.ToDictionary(Microsoft.Quantum.IQSharp.AzureClient.AzureClientError)">
+            <summary>
+                Returns a dictionary representing the properties of the <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorToHtmlEncoder">
+            <summary>
+            Encodes an <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError"/> object as HTML.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorToHtmlEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorToHtmlEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorToTextEncoder">
+            <summary>
+            Encodes an <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError"/> object as plain text.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorToTextEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorToTextEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorJsonConverter">
+            <summary>
+            Encodes an <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.AzureClientError"/> object as JSON.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,Microsoft.Quantum.IQSharp.AzureClient.AzureClientError,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.AzureClientErrorJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,Microsoft.Quantum.IQSharp.AzureClient.AzureClientError,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.CloudJobToHtmlEncoder">
+            <summary>
+            Encodes a <see cref="T:Microsoft.Azure.Quantum.CloudJob"/> object as HTML.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.CloudJobToHtmlEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.CloudJobToHtmlEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.CloudJobToTextEncoder">
+            <summary>
+            Encodes a <see cref="T:Microsoft.Azure.Quantum.CloudJob"/> object as plain text.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.CloudJobToTextEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.CloudJobToTextEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.CloudJobJsonConverter">
+            <summary>
+            Encodes a <see cref="T:Microsoft.Azure.Quantum.CloudJob"/> object as JSON.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.CloudJobJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,Microsoft.Azure.Quantum.CloudJob,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.CloudJobJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,Microsoft.Azure.Quantum.CloudJob,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.CloudJobListJsonConverter">
+            <summary>
+            Encodes an enumeration of <see cref="T:Microsoft.Azure.Quantum.CloudJob"/> objects as JSON.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.CloudJobListJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Collections.Generic.IEnumerable{Microsoft.Azure.Quantum.CloudJob},System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.CloudJobListJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Collections.Generic.IEnumerable{Microsoft.Azure.Quantum.CloudJob},Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.DeviceCodeResultToHtmlEncoder">
+            <summary>
+            Encodes a <see cref="T:Microsoft.Identity.Client.DeviceCodeResult"/> object as HTML.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.DeviceCodeResultToHtmlEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.DeviceCodeResultToHtmlEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.DeviceCodeResultToTextEncoder">
+            <summary>
+            Encodes a <see cref="T:Microsoft.Identity.Client.DeviceCodeResult"/> object as plain text.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.DeviceCodeResultToTextEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.DeviceCodeResultToTextEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.HistogramToHtmlEncoder">
+            <summary>
+            Encodes a <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.Histogram"/> object as HTML.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.HistogramToHtmlEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.HistogramToHtmlEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.HistogramToTextEncoder">
+            <summary>
+            Encodes a <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.Histogram"/> object as plain text.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.HistogramToTextEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.HistogramToTextEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.JsonConverters">
+            <summary>
+            Declares classes derived from <see cref="T:Newtonsoft.Json.JsonConverter"/> defined in this assembly.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.JsonConverters.AllConverters">
+            <summary>
+            Gets an array of instances of each class derived from <see cref="T:Newtonsoft.Json.JsonConverter"/> defined in this assembly.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.ResourceEstimationResult">
+            <summary>
+            The results of a resource estimation job.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.ResourceEstimationResult.#ctor(Newtonsoft.Json.Linq.JToken)">
+            <summary>
+            The results of a resource estimation job.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.ResourceEstimationResultConverter">
+            <summary>
+            Encodes a <see cref="T:Microsoft.Quantum.IQSharp.AzureClient.ResourceEstimationResult"/> object as JSON.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.ResourceEstimationResultConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,Microsoft.Quantum.IQSharp.AzureClient.ResourceEstimationResult,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.ResourceEstimationResultConverter.WriteJson(Newtonsoft.Json.JsonWriter,Microsoft.Quantum.IQSharp.AzureClient.ResourceEstimationResult,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.TargetCapabilityConverter">
+            <summary>
+                Writes values of type <see cref="T:Microsoft.Quantum.QsCompiler.TargetCapability"/> to JSON.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetCapabilityConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,Microsoft.Quantum.QsCompiler.TargetCapability,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetCapabilityConverter.WriteJson(Newtonsoft.Json.JsonWriter,Microsoft.Quantum.QsCompiler.TargetCapability,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.TargetCapabilityToHtmlEncoder">
+            <summary>
+                Formats target capability information for display in notebooks and
+                other rich-text contexts.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.TargetCapabilityToHtmlEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetCapabilityToHtmlEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusToHtmlEncoder">
+            <summary>
+            Encodes a <see cref="T:Azure.Quantum.Jobs.Models.TargetStatus"/> object as HTML.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusToHtmlEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusToHtmlEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusToTextEncoder">
+            <summary>
+            Encodes a <see cref="T:Azure.Quantum.Jobs.Models.TargetStatus"/> object as plain text.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusToTextEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusToTextEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusJsonConverter">
+            <summary>
+            Encodes a <see cref="T:Azure.Quantum.Jobs.Models.TargetStatus"/> object as JSON.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,Microsoft.Azure.Quantum.TargetStatusInfo,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,Microsoft.Azure.Quantum.TargetStatusInfo,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusListJsonConverter">
+            <summary>
+            Encodes an enumeration of <see cref="T:Azure.Quantum.Jobs.Models.TargetStatus"/> objects as JSON.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusListJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Collections.Generic.IEnumerable{Microsoft.Azure.Quantum.TargetStatusInfo},System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.AzureClient.TargetStatusListJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Collections.Generic.IEnumerable{Microsoft.Azure.Quantum.TargetStatusInfo},Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

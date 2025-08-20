@@ -1,0 +1,1643 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Quantum.Simulators</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.#ctor(System.Boolean,System.Nullable{System.UInt32},System.Boolean)">
+            <summary>
+            Creates a an instance of a quantum simulator.
+            </summary>
+            <param name="throwOnReleasingQubitsNotInZeroState"> If set to true, the exception is thrown when trying to release qubits not in zero state. </param>
+            <param name="randomNumberGeneratorSeed"> Seed for the random number generator used by a simulator for measurement outcomes and the Random operation. </param>
+            <param name="disableBorrowing"> If true, Borrowing qubits will be disabled, and a new qubit will be allocated instead every time borrowing is requested. Performance may improve. </param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.CheckAngle(System.Double)">
+            <summary>
+                Makes sure the angle for a rotation or exp operation is not NaN or Infinity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.CheckQubit(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+                Makes sure the target qubit of an operation is valid. In particular it checks that the qubit instance is not null.
+                Also sets the isMeasured flag to false for each qubit
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.CheckQubits(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit},Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+                Makes sure all qubits are valid as parameter of an intrinsic quantum operation. In particular it checks that 
+                    - none of the qubits are null
+                    - there are no duplicated qubits
+                Also sets the isMeasured flag to false for each qubit
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.CheckQubits(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+                Makes sure all qubits are valid as parameter of an intrinsic quantum operation. In particular it checks that 
+                    - none of the qubits are null
+                    - there are no duplicated qubits
+                Also sets the isMeasured flag to false for each qubit
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.CheckAndPreserveQubits(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+                Intended to be used with simulator functions like Dump, Assert, AssertProb
+                Makes sure all qubits are valid as parameter of an intrinsic quantum operation. In particular it checks that 
+                    - none of the qubits are null
+                    - there are no duplicated qubits
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.CheckQubits(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit},Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+                Makes sure all qubits are valid as parameter of an intrinsic quantum operation. In particular it checks that 
+                    - none of the qubits are null
+                    - there are no duplicated qubits
+                Also sets the isMeasured flag to false for each qubit
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.BasisStateLabelingConvention">
+            <summary>
+                The convention to be used in labeling computational basis states
+                given their representations as strings of classical bits.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.BasisStateLabelingConvention.Bitstring">
+            <summary>
+                Label computational states directly by their bit strings.
+            </summary>
+            <example>
+                Following this convention, the state |0⟩ ⊗ |1⟩ ⊗ |1⟩ is labeled
+                by |011⟩.
+            </example>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.BasisStateLabelingConvention.LittleEndian">
+            <summary>
+                Label computational states directly by interpreting their bit
+                strings as little-endian encoded integers.
+            </summary>
+            <example>
+                Following this convention, the state |0⟩ ⊗ |1⟩ ⊗ |1⟩ is labeled
+                by |6⟩.
+            </example>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.BasisStateLabelingConvention.BigEndian">
+            <summary>
+                Label computational states directly by interpreting their bit
+                strings as big-endian encoded integers.
+            </summary>
+            <example>
+                Following this convention, the state |0⟩ ⊗ |1⟩ ⊗ |1⟩ is labeled
+                by |3⟩.
+            </example>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState">
+            <summary>
+                Represents a quantum state vector and all metadata needed to display
+                that state vector.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.BasisStateLabelToBigInt(System.String)">
+            <summary>
+                Converst basis state label from unsigned little-endian bit string to BigInteger, e.g. "001" to 4.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.DiagnosticKind">
+            <summary>
+                Metadata to be used when serializing to JSON, allowing code
+                in other languages to determine what representation is used
+                for this state.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.QubitIds">
+            <summary>
+                The indexes of each qubit on which this state is defined, or
+                <c>null</c> if these indexes are not known.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.NQubits">
+            <summary>
+                The number of qubits on which this state is defined.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.Amplitudes">
+            <remarks>
+                These amplitudes represent the computational basis states
+                labeled in little-endian order, as per the behavior of
+                <see cref="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.StateDumper.Dump(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})" />.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.SignificantAmplitudes(Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.BasisStateLabelingConvention,System.Boolean,System.Double)">
+            <summary>
+                An enumerable source of the significant amplitudes of this state
+                vector and their labels.
+            </summary>
+            <param name="convention">
+                The convention to be used in labeling each computational basis state.
+            </param>
+            <param name="truncateSmallAmplitudes">
+                Whether to truncate small amplitudes.
+            </param>
+            <param name="truncationThreshold">
+                If <paramref name="truncateSmallAmplitudes" /> is <c>true</c>,
+                then amplitudes whose absolute value squared are below this
+                threshold are suppressed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.BasisStateLabel(Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.BasisStateLabelingConvention,System.Numerics.BigInteger)">
+            <summary>
+                Using the given labeling convention, returns the label for a
+                computational basis state described by its bit string as encoded
+                into an integer index in the little-endian encoding.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.FormatMagnitude(System.Double,System.Double)">
+            <summary>
+            Returns a string that represents the magnitude of the  amplitude.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.FormatAngle(System.Double,System.Double)">
+            <summary>
+            Returns a string that represents the phase of the amplitude.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.FormatPolar(System.Double,System.Double)">
+            <summary>
+            Returns a string for the amplitude's polar representation (magnitude/angle).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState.FormatCartesian(System.Double,System.Double)">
+            <summary>
+            Returns a string for the amplitude's cartesian representation (real + imagnary).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.Dump``1(``0,Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            Dumps the wave function for the given qubits into the given target. 
+            If the target is QVoid or an empty string, it dumps it to the console
+            using the `Message` function, otherwise it dumps the content into a file
+            with the given name.
+            If the given qubits is null, it dumps the entire wave function, otherwise
+            it attempts to create the wave function or the resulting subsystem; if it fails
+            because the qubits are entangled with some external qubit, it just generates a message.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.StateDumper">
+            <summary>
+            This class allows you to dump the state (wave function)
+            of the native simulator into a callback function.
+            The callback function is triggered for every state basis
+            vector in the wavefunction.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.StateDumper.#ctor(Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator)">
+            <summary>
+            Basic constructor. Takes the simulator to probe.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.StateDumper.Callback(System.String,System.Double,System.Double)">
+            <summary>
+            The callback method that will be used to report the amplitude 
+            of each basis vector of the wave function.
+            The method should return 'true' if the simulator should 
+            continue reporting the state of the remaining basis vectors.
+            </summary>
+            <param name="idx">The index of the basis state vector being reported.</param>
+            <param name="real">The real portion of the amplitude of the given basis state vector.</param>
+            <param name="img">The imaginary portion of the amplitude of the given basis state vector.</param>
+            <returns>true if dumping should continue, false to stop dumping.</returns>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.StateDumper.Simulator">
+            <summary>
+            The Simulator being reported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.StateDumper.Dump(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            Entry method to get the dump of the wave function.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableStateDumper">
+            <summary>
+                A state dumper that encodes dumped states into displayable
+                objects.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableStateDumper.FileWriter">
+            <summary>
+            A method to call to output a string representation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableStateDumper.#ctor(Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator,System.Action{System.String})">
+            <summary>
+                Constructs a new display dumper for a given simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableStateDumper.Callback(System.String,System.Double,System.Double)">
+            <summary>
+                Used by the simulator to provide states when dumping.
+                Expects label (idx) in a little-endian format (ex: "001" = 4)
+                Not intended to be called directly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableStateDumper.Dump(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+                Dumps the state of a register of qubits as a displayable object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.QSimQubitManager.MaxId">
+            <summary>
+             The max number used as qubit id so far.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.ComplexArrayConverter">
+            <summary>
+                Converts <see cref="T:NumSharp.NDArray" /> instances of dtype <c>double</c>
+                and with a trailing index of length 2 to and from a JSON
+                serialization.
+            </summary>
+            <remarks>
+              <para>    
+                The JSON representation consumed and produced by this converter is
+                compatible with the representation used by Rust's <c>ndarray</c>
+                and <c>serde</c> crates.
+              </para>
+              <para>
+                In particular, each JSON object produced by this converter has
+                three properties:
+              </para>
+              <list type="bullet">
+                <item><c>"v"</c>: Indicates the <c>ndarray</c> format version
+                  being used. Always <c>1</c> for this implementation.</item>
+                <item><c>"dim"</c>: Lists the dimensions of the array being
+                  serialized. Will always contain one less dimension than the
+                  original array, as one dimension represents the real and imaginary
+                  components of each element.</item>
+                <item><c>"data"</c>: Lists the elements of the array, with the
+                  right-most dimension varying the fastest (defined by <c>ndarray</c>
+                  as "logical order", and by NumPy as "C-ordered").</item>
+              </list>
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.DelegatedConverter`1">
+            <summary>
+                 Utilizes <see cref="T:System.Text.Json.JsonSerializer" /> as a
+                 <see cref="T:Newtonsoft.Json.JsonConverter" />, allowing for using both
+                 JSON APIs together.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.DelegatedConverter`1.ReadJson(Newtonsoft.Json.JsonReader,System.Type,`0,System.Boolean,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.DelegatedConverter`1.WriteJson(Newtonsoft.Json.JsonWriter,`0,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.OpenSystemsSimlatorExtensions.Require(System.Text.Json.Utf8JsonReader@,System.Text.Json.JsonTokenType,System.Boolean)">
+            <summary>
+                Ensures that the current token is of a given token type, optionally reading
+                the current token before checking.
+            </summary>
+            <param name="readCurrent">
+                If <c>true</c>, reads and consumes the current token before checking.
+            </param>
+            <param name="reader">
+                The JSON reader to read from.
+            </param>
+            <param name="type">
+                The token type expected.
+            </param>
+            <exception cref="T:System.Text.Json.JsonException">
+                Thrown when the current token does not match <paramref name="type" />.
+            </exception>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.SimulationException">
+            <summary>
+                Represents an exception that is raised by native simulator code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.SimulationException.SourceLibrary">
+            <summary>
+                The name of the native shared library which raised this
+                exception if known, <c>null</c> otherwise.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.SimulationException.NativeBacktrace">
+            <summary>
+                 The native backtrace, if any, associated with this exception.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.OpenSystemsSimulatorNativeInterface">
+            <summary>
+                Abstracts away calls to and from the experimental simulators DLL.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.Extensions">
+            <summary>
+            Utility functions for extracting Type related to ICallalble, IAdjointable, IControllable
+            and IUnitary
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.Extensions.InterfaceType(System.Type,System.Type)">
+            <summary>
+            For a type t implementing generic  
+            interface given by genericInterfaceDefinition
+            return type corresponding to genericInterface with filled in 
+            generic parameters. Returns null if type does not implement generic interface
+            and causes Debug.Assert if type implements more than one of the generic interfaces. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.Extensions.ICallableType(System.Type)">
+            <summary>
+            Returns type of ICallable interface implemented by a given type.
+            If given type does not implement ICallable return null
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.Extensions.IUnitatryType(System.Type)">
+            <summary>
+            Returns type of IUnitary interface implemented by a given type.
+            If given type does not implement ICallable return null
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.Extensions.IAdjointableType(System.Type)">
+            <summary>
+            Returns type of IUnitary interface implemented by a given type.
+            If given type does not implement ICallable return null
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.Extensions.IControllableType(System.Type)">
+            <summary>
+            Returns type of IControllable interface implemented by a given type.
+            If given type does not implement ICallable return null
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroups">
+            <summary>
+            Groups of primitive operations counted by <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>.
+            Used as a key for the <see cref="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.TraceGateTimes"/> 
+            dictionary.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroups.CNOT">
+            <summary>
+            Controlled Pauli X gate, also known as CNOT
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroups.QubitClifford">
+            <summary>
+            Any single qubit Clifford and Pauli gate.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroups.R">
+            <summary>
+            Any single qubit rotation excluding T and Clifford gates
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroups.Measure">
+            <summary>
+            Any measurement. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroups.T">
+            <summary>
+            This includes T gate, T_x = H.T.H, T_y = Hy.T.Hy 
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration">
+            <summary>
+            The configuration of <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.UseDistinctInputsChecker">
+            <summary>
+            If set to <c>true</c>, the Distinct Inputs Checker component of QCTraceSimulator is used.
+            If input to an operation containing non-distinct qubits is detected, a
+            <see cref="!:DistinctInputsCheckerException"/> is thrown.
+            For more details, please refer to the 
+            "Quantum computer trace simulator/Distinct Inputs Checker" 
+            documentation section.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.UseInvalidatedQubitsUseChecker">
+            <summary>
+            If set to <c>true</c>, the Invalidated Qubits Use Checker component
+            of QCTraceSimulator is used. If the problem is detected,
+            <see cref="!:InvalidatedQubitsUseCheckerException"/> is thrown.
+            For more details, please refer to the 
+            "Quantum computer trace simulator/Invalidated Qubits Use Checker" 
+            documentation section.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.UsePrimitiveOperationsCounter">
+            <summary>
+            If set to <c>true</c>, QCTraceSimulator collects primitive operation counts for each call graph edge.
+            The names of the metrics collected by Primitive Operations Counter are listed in 
+            <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroupsNames"/>.
+            For more details, please refer to the 
+            "Quantum computer trace simulator/Primitive Operations Counter" 
+            documentation section.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.UseDepthCounter">
+            <summary>
+            If set to <c>true</c>, QCTraceSimulator collects operations depth per each call graph edge.
+            The names of the metrics collected by the Depth Counter 
+            are listed in <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames.DepthCounter"/>
+            For more details, please refer to the 
+            "Quantum computer trace simulator/Depth Counter" documentation section.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.UseWidthCounter">
+            <summary>
+            If set to <c>true</c>, QCTraceSimulator collects information about the number of qubits used per call graph edge.
+            The names of the metrics collected by the Width Counter 
+            are listed in <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames.WidthCounter"/>. 
+            For more details, please refer to the 
+            "Quantum computer trace simulator/ Width Counter" documentation section.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.OptimizeDepth">
+            <summary>
+            Controls if depth or width optimization is favored.
+            If set to <c>true</c>, resulting circuit is optimized for depth by discouraging qubit reuse.
+            If set to <c>false</c>, resulting circuit is optimized for width be encouraging qubit reuse.
+            Optimization is only limited to reuse of qubits after they are released by user code.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.TraceGateTimes">
+            <summary>
+            Specifies the time it takes to execute each gate.
+            In other words, specifies the depth of each primitive operation. 
+            These fields are used by the 
+            Depth Counter component of <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/> to compute the aggregate 
+            depth of operations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.ThrowOnUnconstrainedMeasurement">
+            <summary>
+            If set to <c>true</c>, an <see cref="!:UnconstrainedMeasurementException"/> is thrown 
+            every time there is an unconstrained measurement. For more details,
+            please refer to the "Quantum computer trace simulator" documentation  section.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.CallStackDepthLimit">
+            <summary>
+            Bounds the call stack depth for which information per call graph edge is stored.
+            The depth of a given node in the call graph is the distance from the node to the root 
+            of the call graph.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.EnableRestrictedReuse">
+            <summary>
+            Specifies if a qubit manager with restricted reuse should be used to allocate qubits.
+            When <c>true</c>, a qubit manager derived from <c>QubitManagerRestrictedReuse</c> is used for tracing.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator">
+            <summary>
+            Quantum Computer Trace Simulator. Simulates a trace of the execution of a quantum 
+            program on a quantum computer without performing full quantum state simulation.
+            </summary>
+            
+            <remarks>
+            <para>
+            The simulator collects metrics describing the performance of Q# operations and 
+            resource consumption by Q# operations. For example, these metrics include the number
+            of qubits that an operation takes as an input; the number of qubits allocated
+            by an operation; and the number of T gates executed by an operation. 
+            For the full list of metrics, see the <see cref="P:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.MetricNames"/> property and the
+            <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroupsNames"/> and <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames"/> classes.
+            </para>
+            <para>
+            Q# operations may have different variants that are invoked using functors. Each operation
+            in Q# can have up to four variants: body, adjoint, controlled, and controlled adjoint. 
+            Usually, the controlled version of an operation uses a different number of gates, 
+            has a different depth, and uses a different number of qubits than the body of 
+            the operation. For this reason, the simulator collects metrics separately 
+            for each operation variant.
+            </para>
+            <para>
+            The simulator collects metrics for each edge of the call graph. For example, if the 
+            adjoint variant of operation A calls the controlled variant of operation B, 
+            the edge (B: Controlled, A: Adjoint) will appear in the call graph with the adjoint variant 
+            of A as a caller of the controlled variant of B. The operations that are called 
+            by the Run method of the simulator are top-level. The metrics collected for 
+            top-level operations are obtained by their names without specifying the caller name.
+            </para>
+            <para>
+            The simulator can potentially collect multiple values of the same metric 
+            associated with the same call graph edge. For example, the adjoint variant of 
+            operation A can be called multiple times and with different parameters. The 
+            simulator does not store all collected values of the metrics. Instead, the simulator 
+            computes functions of the collected values of the metric on the fly. For example, 
+            the simulator computes minimum, maximum and average of the collected values. 
+            We call these functions statistics of the metric. 
+            To get the full list of statistics computed for a given
+            metric use the <see cref="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetricStatisticNames(System.String)"/> method. 
+            The list of statistics is also available through the members of the
+            <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.StatisticsNames"/> class.
+            </para>
+            <para>
+            Q# operations are mapped to C# types. For example, the 
+            C# type <see cref="!:Microsoft.Quantum.Intrinsic.X"/> 
+            corresponds to the Q# operation <a href="https://docs.microsoft.com/qsharp/api/qsharp/microsoft.quantum.intrinsic.x">Microsoft.Quantum.Intrinsic.X</a>.
+            When the value of the metrics is requested for a Q# operation, 
+            the corresponding C# type is passed as type parameter.
+            </para>
+            <para>
+            When the maximum of all collected values of the metric is equal to the minimum, 
+            the metric value is well-defined and the methods
+            <see cref="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetric``1(System.String,Microsoft.Quantum.Simulation.Core.OperationFunctor)"/> and 
+            <see cref="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetric``2(System.String,Microsoft.Quantum.Simulation.Core.OperationFunctor,Microsoft.Quantum.Simulation.Core.OperationFunctor)"/>
+            can be used. Otherwise, the methods
+            <see cref="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetricStatistic``1(System.String,System.String,Microsoft.Quantum.Simulation.Core.OperationFunctor)"/> and
+            <see cref="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetricStatistic``2(System.String,System.String,Microsoft.Quantum.Simulation.Core.OperationFunctor,Microsoft.Quantum.Simulation.Core.OperationFunctor)"/>
+            must be used to retrieve the statistics of the metric. 
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetConfigurationCopy">
+            <summary>
+            Returns a copy of the configuration used to create this instance of 
+            <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetric``1(System.String,Microsoft.Quantum.Simulation.Core.OperationFunctor)">
+            <summary> 
+            Returns the value of a given metric for a top level operation. 
+            </summary>
+            
+            <param name="metric">
+            The name of the metric requested for the top level 
+            operation specified by <typeparamref name="TOperation"/> 
+            </param>
+            
+            <typeparam name="TOperation">
+            The C# type corresponding to the Q# operation for which the metric is requested. 
+            </typeparam>
+            
+            <exception cref="T:System.Exception"> Thrown when a given metric
+            is not well-defined. </exception>
+            
+            <param name="functor">
+            The functor (also called variant) of the operation for which the metric is requested.
+            If not specified, this defaults to the "body" specialization.
+            </param>
+            
+            <remarks>
+            For a more detailed discussion of metrics, statistics, call graph edges and 
+            operation specializations, see the Remarks section of the <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/> class
+            documentation.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetric``2(System.String,Microsoft.Quantum.Simulation.Core.OperationFunctor,Microsoft.Quantum.Simulation.Core.OperationFunctor)">
+             <summary> 
+             Returns the value of a given metric associated with an edge of the 
+             call graph.
+             </summary>
+             
+             <param name="metric">
+             The name of the metric requested for the specified call graph edge.
+             </param>
+             
+             <typeparam name="TOperation">
+             The C# type corresponding to Q# operation for which the metric is requested. 
+             </typeparam>
+             
+             <typeparam name="TCaller">
+             The C# type corresponding to the caller of the Q# operation for which the metric is requested.
+             </typeparam>
+             
+             <exception cref="T:System.Exception"> Thrown when a given metric
+             is not well-defined. </exception>
+             
+             <param name="functor">
+             The functor specialization of the operation for which the metric is requested. 
+             If not specified, this defaults to the "body" variant.
+             </param>
+             
+             <param name="callerFunctor">
+             The functor specialization of the caller of the operation
+             for which the metric is requested.
+             If not specified, this defaults to the "body" variant.
+             </param>
+            
+             <remarks>
+             For a more detailed discussion of metrics, statistics, call graph edges and 
+             operation specializations, see the Remarks section of the <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/> class
+             documentation.
+             </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetricStatistic``1(System.String,System.String,Microsoft.Quantum.Simulation.Core.OperationFunctor)">
+            <summary> 
+            Returns a statistic of a given metric for a top level operation. 
+            </summary>
+            
+            <param name="metric">
+            The name of the metric requested for the top level 
+            operation specified by <typeparamref name="T"/>.
+            </param>
+            
+            <param name="statistic">
+            The name of a statistic of the specified metric for the specified top level operation.
+            </param>
+            
+            <typeparam name="T">
+            The C# type corresponding to the Q# operation for which the metric is requested. 
+            </typeparam>
+            
+            <param name="functor">
+            The functor specialization of the operation for which the metric is requested. 
+            If not specified, this defaults to the "body" variant.
+            </param>
+            
+            <remarks>
+            For a more detailed discussion of metrics, statistics, call graph edges and 
+            operation specializations, see the Remarks section of the <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/> class
+            documentation.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetricStatistic``2(System.String,System.String,Microsoft.Quantum.Simulation.Core.OperationFunctor,Microsoft.Quantum.Simulation.Core.OperationFunctor)">
+            <summary> 
+            Returns a statistic of a given metric associated with an edge of the call graph.
+            </summary>
+            
+            <param name="metric">
+            The name of the metric requested for the specified call graph edge.
+            </param>
+            
+            <param name="statistic">
+            The name of the statistic of the metric requested for a given call graph edge.
+            </param>
+            
+            
+            <typeparam name="TOperation">
+            The C# type corresponding to the Q# operation for which the metric is requested. 
+            </typeparam>
+            
+            <typeparam name="TCaller">
+            The C# type corresponding to the caller of the Q# operation for which the metric is requested. 
+            </typeparam>
+            
+            <param name="functor">
+            The functor specialization of the operation for which the metric is requested. 
+            If not specified, this defaults to the "body" specialization.
+            </param>
+            
+            <param name="callerFunctor">
+            The functor specialization of the caller of the operation
+            for which the metric is requested. 
+            If not specified, this defaults to the "body" specialization.
+            </param>
+            
+            <remarks>
+            For a more detailed discussion of metrics, statistics, call graph edges and 
+            operation specializations, see the Remarks section of the <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/> class
+            documentation.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetricStatisticNames(System.String)">
+            <summary>
+            Returns the names of all statistics currently collected for a given metric.
+            </summary>
+            
+            <param name="metric">
+            The metric may be any member of <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroupsNames"/>
+            and <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames"/>.
+            The full list of the metrics collected by this instance of <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>
+            can be obtained by calling <see cref="P:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.MetricNames"/>.
+            </param>
+            
+            <returns>
+            An array of strings with the names of statistics collected for a given metric.
+            </returns>
+            
+            <remarks>
+            For a more detailed discussion of metrics and statistics,
+            see the Remarks section of the <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/> class
+            documentation.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.#ctor">
+            <summary>
+            Creates a new instance of the simulator with the default 
+            <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.#ctor(Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration,System.Reflection.Assembly)">
+            <summary>
+            Creates a new instance of the simulator with configuration given by 
+            the <paramref name="config"/> parameter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.MetricNames">
+            <summary>
+            Array of the names of all of the metrics collected by this instance of the simulator.
+            This array includes the members of <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroupsNames"/>
+            and <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames"/>.
+            </summary>
+                    
+            <remarks>
+            For a more detailed discussion of metrics, 
+            see the Remarks section of the <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/> class
+            documentation.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.ToCSV(System.String)">
+            <summary>
+            Returns all collected metrics for each call graph edge in CSV format. 
+            The key in the dictionary is the name of metric counter  
+            from <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsCountersNames"/>. 
+            The value for each key is a collection of statistics formatted as a string in CSV format.
+            In the CSV format, columns names are formated as "MetricName:StatisticName", and rows 
+            correspond to call graph edges.
+            </summary>
+            
+            <param name="format"> The format string used to format values of type 
+            <c>double</c> in the CSV file. The method supports the same format strings as the
+            <see cref="M:System.Double.ToString(System.String)"/> method.
+            </param>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.Implementation.QCTraceSimulatorImpl">
+            <summary>
+            Internals of <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>. For internal use only.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.Implementation.QCTraceSimulatorImpl.InitializeQCTracerCoreListeners(System.Collections.Generic.IList{Microsoft.Quantum.Simulation.QCTraceSimulatorRuntime.IQCTraceSimulatorListener})">
+            <summary>
+            This function can be overridden to add more listeners of
+            type <see cref="T:Microsoft.Quantum.Simulation.QCTraceSimulatorRuntime.IQCTraceSimulatorListener"/>
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroupsNames">
+            <summary>
+            Names of primitive operation groups for which statistics are collected 
+            by <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/> when
+            <see cref="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.UsePrimitiveOperationsCounter"/> is set to <c>true</c>. 
+            These can be passed as an argument 
+            metric to
+            <see cref="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.GetMetric``2(System.String,Microsoft.Quantum.Simulation.Core.OperationFunctor,Microsoft.Quantum.Simulation.Core.OperationFunctor)"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroupsNames.CNOT">
+            <summary>
+            The CNOT gate, also known as the Controlled Pauli X gate.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroupsNames.T">
+            <summary>
+            The T gate and its conjugates, including the T gate, T_x = H.T.H, and T_y = Hy.T.Hy.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroupsNames.QubitClifford">
+            <summary>
+            Any single qubit Clifford and Pauli gate.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroupsNames.R">
+            <summary>
+            Any single qubit rotation excluding T, Clifford and Pauli gates.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.PrimitiveOperationsGroupsNames.Measure">
+            <summary>
+            Any measurement. 
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.GateTimes">
+            <summary>
+            This class provides sample configurations 
+            for the <see cref="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.TraceGateTimes"/> field
+            that follow some conventions commonly used in the literature.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.GateTimes.TGatesOnly">
+            <summary>
+            This configuration specifies that all gates except T take 0 time. 
+            A T gate is set to take unit time.
+            With this gate time configuration, <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>
+            will compute T depth.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.GateTimes.CNOTOnly">
+            <summary>
+            This configuration specifies that all gates except CNOT take 0 time. 
+            A CNOT gate is set to take unit time.
+            With this gate time configuration, <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>
+            will compute CNOT depth.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames">
+            <summary>
+            Names of the metrics supported by components of <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames.DepthCounter">
+            <summary>
+            Metric names collected by the DepthCounter component. 
+            Set <see cref="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.UseDepthCounter"/> to <c>true</c>
+            to enable collection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames.DepthCounter.Depth">
+            <summary>
+            Depth of the quantum circuit executed by an operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames.DepthCounter.StartTimeDifference">
+            <summary>
+            Maximal difference in the availability time for qubits input into the operation.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames.WidthCounter">
+            <summary>
+            Metric names collected by the Width Counter component. 
+            Set <see cref="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulatorConfiguration.UseWidthCounter"/> to <c>true</c> to enable collection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames.WidthCounter.BorrowedWith">
+            <summary>
+            Maximum number of qubits borrowed inside the operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames.WidthCounter.ExtraWidth">
+            <summary>
+            Maximum number of qubits allocated during the execution of the operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames.WidthCounter.InputWidth">
+            <summary>
+            Number of qubits input into the operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsNames.WidthCounter.ReturnWidth">
+            <summary>
+            Number of qubits returned from an operation.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.StatisticsNames">
+            <summary>
+            Names of the statistics collected by <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.StatisticsNames.Min">
+            <summary>
+            The smallest value of a metric among all collected samples.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.StatisticsNames.Max">
+            <summary>
+            The largest value of a metric among all collected samples.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.StatisticsNames.Average">
+            <summary>
+            The average of a metric over all collected samples.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.StatisticsNames.SecondMoment">
+            <summary>
+            The second moment of a metric over all collected samples.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.StatisticsNames.Variance">
+            <summary>
+            The variance of a metric over all collected samples.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.StatisticsNames.Sum">
+            <summary>
+            The sum of a metric over all collected samples.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsCountersNames">
+            <summary>
+            Names of metric calculators used in <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>. These correspond to 
+            the keys of the dictionary returned by <see cref="M:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator.ToCSV(System.String)"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsCountersNames.primitiveOperationsCounter">
+            <summary>
+            Name of the Primitive Operation Counting component of <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsCountersNames.depthCounter">
+            <summary>
+            Name of the Depth Counting component of <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.MetricsCountersNames.widthCounter">
+            <summary>
+            Name of the Width Counting component of <see cref="T:Microsoft.Quantum.Simulation.Simulators.QCTraceSimulators.QCTraceSimulator"/>. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.QuantumSimulator.QubitIds">
+            <summary>
+                Returns the list of the qubits' ids currently allocated in the simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.QuantumSimulator.#ctor(System.Boolean,System.Nullable{System.UInt32},System.Boolean)">
+            <summary>
+            Creates a an instance of a quantum simulator.
+            </summary>
+            <param name="throwOnReleasingQubitsNotInZeroState"> If set to true, the exception is thrown when trying to release qubits not in zero state. </param>
+            <param name="randomNumberGeneratorSeed"> Seed for the random number generator used by a simulator for measurement outcomes and the Random operation. </param>
+            <param name="disableBorrowing"> If true, Borrowing qubits will be disabled, and a new qubit will be allocated instead every time borrowing is requested. Performance may improve. </param>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.SparseSimulator.QubitIds">
+            <summary>
+                Returns the list of the qubits' ids currently allocated in the simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.SparseSimulator.#ctor(System.Boolean,System.Nullable{System.UInt32},System.Boolean,System.UInt32)">
+            <summary>
+            Creates a an instance of a sparse simulator.
+            </summary>
+            <param name="throwOnReleasingQubitsNotInZeroState"> If set to true, the exception is thrown when trying to release qubits not in zero state. </param>
+            <param name="randomNumberGeneratorSeed"> Seed for the random number generator used by a simulator for measurement outcomes and the Random operation. </param>
+            <param name="disableBorrowing"> If true, Borrowing qubits will be disabled, and a new qubit will be allocated instead every time borrowing is requested. Performance may improve. </param>
+            <param name="numQubits"> Qubit capacity. </param>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator">
+            <summary>
+            The Toffoli simulator implementation class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Assert">
+            <summary>
+            Implementation of the Assert operation for the Toffoli simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Assert.#ctor(Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator)">
+            <summary>
+            Constructs a new operation instance.
+            </summary>
+            <param name="m">The simulator that this operation affects.</param>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Assert.__Body__">
+            <summary>
+            The implementation of the operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Assert.__AdjointBody__">
+            <summary>
+            The implementation of the adjoint specialization of the operation.
+            The current definition is that this is a no-op.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Assert.__ControlledBody__">
+            <summary>
+            The implementation of the controlled specialization of the operation.
+            The current definition is that this is a no-op.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Assert.__ControlledAdjointBody__">
+            <summary>
+            The implementation of the controlled adjoint specialization of the operation.
+            The current definition is that this is a no-op.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.AssertProb">
+            <summary>
+            Implementation of the AssertProb operation for the Toffoli simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.AssertProb.#ctor(Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator)">
+            <summary>
+            Constructs a new operation instance.
+            </summary>
+            <param name="m">The simulator that this operation affects.</param>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.AssertProb.__Body__">
+            <summary>
+            The implementation of the operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.AssertProb.__AdjointBody__">
+            <summary>
+            The implementation of the adjoint specialization of the operation.
+            The current definition is that this is a no-op.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.AssertProb.__ControlledBody__">
+            <summary>
+            The implementation of the controlled specialization of the operation.
+            The current definition is that this is a no-op.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.AssertProb.__ControlledAdjointBody__">
+            <summary>
+            The implementation of the controlled adjoint specialization of the operation.
+            The current definition is that this is a no-op.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.DumpMachine`1">
+            <summary>
+            Implementation of the DumpMachine operation for the Toffoli simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.DumpMachine`1.#ctor(Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator)">
+            <summary>
+            Constructs a new operation instance.
+            </summary>
+            <param name="m">The simulator that this operation affects.</param>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.DumpMachine`1.__Body__">
+            <summary>
+            The implementation of the operation.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.DumpRegister`1">
+            <summary>
+            Implementation of the DumpRegister operation for the Toffoli simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.DumpRegister`1.#ctor(Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator)">
+            <summary>
+            Constructs a new operation instance.
+            </summary>
+            <param name="m">The simulator that this operation affects.</param>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.DumpRegister`1.__Body__">
+            <summary>
+            The implementation of the operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicExp#Body(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Pauli},System.Double,Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            The implementation of the operation.
+            For the Toffoli simulator, the implementation flips a target qubit
+            if the respective rotation is effectively an X gate.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicExp#AdjointBody(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Pauli},System.Double,Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            The implementation of the adjoint specialization of the operation.
+            For the Toffoli simulator *only*, this operation is self-adjoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicExp#ControlledBody(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit},Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Pauli},System.Double,Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            The implementation of the controlled specialization of the operation.
+            For the Toffoli simulator, the implementation flips the target qubit
+            if the rotation is effectively an X gate and all of the control qubits
+            are in the One state.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicExp#ControlledAdjointBody(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit},Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Pauli},System.Double,Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            The implementation of the controlled adjoint specialization of the operation.
+            For the Toffoli simulator *only*, the controlled specialization is self-adjoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicH#Body(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the operation.
+            For the Toffoli simulator, the implementation throws a run-time error.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicMeasure#Body(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Pauli},Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            The implementation of the operation.
+            For the Toffoli simulator, the implementation returns the joint parity of the 
+            states of the measured qubits.
+            That is, Result.One is returned if an odd number of the measured qubits are
+            in the One state.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicR#Body(Microsoft.Quantum.Simulation.Core.Pauli,System.Double,Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the operation.
+            For the Toffoli simulator, the implementation flips the target qubit
+            if the rotation is effectively an X gate.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicR#AdjointBody(Microsoft.Quantum.Simulation.Core.Pauli,System.Double,Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the adjoint specialization of the operation.
+            For the Toffoli simulator *only*, this operation is self-adjoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicR#ControlledBody(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit},Microsoft.Quantum.Simulation.Core.Pauli,System.Double,Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the controlled specialization of the operation.
+            For the Toffoli simulator, the implementation flips the target qubit
+            if the rotation is effectively an X gate and all of the control qubits
+            are in the One state.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicR#ControlledAdjointBody(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit},Microsoft.Quantum.Simulation.Core.Pauli,System.Double,Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the controlled adjoint specialization of the operation.
+            For the Toffoli simulator *only*, the controlled specialization is self-adjoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicS#Body(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the operation.
+            For the Toffoli simulator, the implementation throws a run-time error.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicT#Body(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the operation.
+            For the Toffoli simulator, the implementation throws a run-time error.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.DEFAULT_QUBIT_COUNT">
+            <summary>
+            The default number of qubits to allocate.
+            Note that this simulator does not allow resizing after construction.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.#ctor">
+            <summary>
+            Constructs a default Toffoli simulator instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.#ctor(System.UInt32)">
+            <summary>
+            Constructs a Toffoli simulator instance with the specified qubit count.
+            </summary>
+            <param name="qubitCount">The number of qubits to allocate.
+            There is an overhead of one byte of memory usage per allocated qubit.
+            There is no time overhead from allocating more qubits.</param>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Name">
+            <summary>
+            The name of an instance of this simulator.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.State">
+            <summary>
+            The state of the simulator; always a simple product state in the computational (Z) basis.
+            Note that "true" bits are in the Z=One state.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.GetParity(System.Collections.Generic.IEnumerable{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            Gets the parity of a group of qubits.
+            Specifically, this counts the number of qubits in the One state, and returns
+            true if the number is odd and false if it's even.
+            </summary>
+            <param name="qubits">The sequence of qubits</param>
+            <returns>true if there are an odd number of qubits in the true (One) state,
+            and false if there are an even number in the true state</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.CheckControlQubits(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit},Microsoft.Quantum.Simulation.Core.Qubit)">
+            Verify the qubits for a controlled operation with a single target,
+            including checking that all qubits are distinct.
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.CheckControlQubits(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit},Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            Verify the qubits for a controlled operation with multiple targets,
+            including checking that all qubits are distinct.
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.VerifyControlCondition(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            Verify that all of the control qubits for an operation are in the 1 state
+            </summary>
+            <param name="ctrls"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.CheckRotation(Microsoft.Quantum.Simulation.Core.Pauli,System.Double)">
+            <summary>
+            Make sure that a rotation is either the identity or an X, up to global phase.
+            Assumes that the rotation is exp(i*theta*sigma(axis)), where sigma(axis) is
+            the appropriate Pauli matrix normalized to +/-1 eigenvalues.
+            Throws an exception if the rotation is invalid.
+            </summary>
+            <param name="axis">The rotation axis</param>
+            <param name="theta">The rotation angle, properly normalized</param>
+            <returns>A pair of flags. The first indicates whether the rotation is
+            equivalent to X; the second whether or not the rotation is exactly equal
+            to the identity (no phase), and thus may be controlled.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.CheckRotation(Microsoft.Quantum.Simulation.Core.Pauli,System.Int64,System.Int64)">
+            <summary>
+            Make sure that a rotation defined as a fraction of a power of two is either
+            the identity or an X, up to global phase.
+            Assumes that the rotation is exp(i*pi*numerator/(2^power)*sigma(axis)),
+            where sigma(axis) is the appropriate Pauli matrix normalized to +/-1 eigenvalues.
+            Throws an exception if the rotation is invalid.
+            </summary>
+            <param name="axis">The rotation axis</param>
+            <param name="numerator">The numerator of the rotation angle</param>
+            <param name="power">The power of two for the denominator of the
+            rotation angle</param>
+            <returns>A pair of flags. The first indicates whether the rotation is
+            equivalent to X; the second whether or not the rotation is exactly equal
+            to the identity (no phase), and thus may be controlled.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.BorrowQubit(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            Mark a qubit as being borrowed, tracking its state before borrowing.
+            </summary>
+            <param name="q">The qubit being borrowed.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.BorrowQubits(System.Collections.Generic.IEnumerable{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            Mark a group of qubits as being borrowed, tracking their states before borrowing.
+            </summary>
+            <param name="qs">The qubits being borrowed.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.ReturnQubit(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            Validate that a borrowed qubit is being returned in its original state.
+            </summary>
+            <param name="q">The qubit being returned.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.ReturnQubits(System.Collections.Generic.IEnumerable{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            Validate that a group of borrowed qubits are being returned in their original states.
+            </summary>
+            <param name="qs">The qubits being returned.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.DumpState(System.Int64[],System.String)">
+            <summary>
+            Dumps the state of a set of qubits for debugging purposes.
+            </summary>
+            <param name="ids">The ids of the qubits to dump</param>
+            <param name="filename">The name of the file to write to; if null or the empty string
+            or just whitespace, the console is written to</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSRelease">
+            <summary>
+            Implementation of the (internal) Release operation for the Toffoli simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSRelease.#ctor(Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator)">
+            <summary>
+            Constructs a new operation instance.
+            </summary>
+            <param name="m">The simulator that this operation affects.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSRelease.Apply(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            Releases a single qubit.
+            </summary>
+            <param name="q">The qubit to release.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSRelease.Apply(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            Releases an array of qubits.
+            </summary>
+            <param name="qubits">The qubits to release.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSBorrow">
+            <summary>
+            Implementation of the (internal) Borrow operation for the Toffoli simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSBorrow.#ctor(Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator)">
+            <summary>
+            Constructs a new operation instance.
+            </summary>
+            <param name="m">The simulator that this operation affects.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSBorrow.Apply">
+            <summary>
+            Borrows a single qubit.
+            </summary>
+            <returns>The borrowed qubit.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSBorrow.Apply(System.Int64)">
+            <summary>
+            Borrows multiple qubits.
+            </summary>
+            <param name="count">The number of qubits to borrow.</param>
+            <returns>The array of borrowed qubits.</returns>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSReturn">
+            <summary>
+            Implementation of the (internal) Return operation for the Toffoli simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSReturn.#ctor(Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator)">
+            <summary>
+            Constructs a new operation instance.
+            </summary>
+            <param name="m">The simulator that this operation affects.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSReturn.Apply(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            Returns a single qubit.
+            </summary>
+            <param name="q">The qubit to return</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.TSReturn.Apply(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            Returns an array of qubits.
+            </summary>
+            <param name="qubits">The qubits to return.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicX#Body(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the operation.
+            For the Toffoli simulator, the implementation flips the target qubit.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicX#ControlledBody(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit},Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the controlled specialization of the operation.
+            For the Toffoli simulator, the implementation flips the target qubit 
+            if all of the control qubits are 1.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicY#Body(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the operation.
+            For the Toffoli simulator, the implementation throws a run-time error.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Simulators.ToffoliSimulator.Microsoft#Quantum#Intrinsic#Interfaces#IIntrinsicZ#Body(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            The implementation of the operation.
+            For the Toffoli simulator, the implementation throws a run-time error.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Extensions.Reverse(System.String)">
+            <summary>
+            Reverses the string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Extensions.GetIds(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit})">
+            <summary>
+            Returns the ids of a qubit array as a uint[]
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Extensions.InitBuiltinOperations``1(Microsoft.Quantum.Simulation.Common.Factory{``0},System.Type)">
+            <summary>
+             Automatically identifies and registers a Type's BuiltIn operations. 
+             It recursively checks on this and its BaseType for all NestedTypes that are
+             a subclass of T and registers as the override of the BaseType 
+             it implements.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.SimulatorBase">
+            <summary>
+                A Base class for Simulators.
+                It provides the infrastructure that makes it easy for a Simulator
+                to become an OperationFactory (so the execution of an Operation
+                can be tied to this simulator) and
+                to manage the allocation of Qubits (via the QubitManager).
+            </summary>
+        </member>
+        <member name="E:Microsoft.Quantum.Simulation.Common.SimulatorBase.OnDisplayableDiagnostic">
+            <summary>
+                An event fired whenever a simulator has additional diagnostic data
+                available for display (e.g. state information, assertion details,
+                execution traces).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Common.SimulatorBase.EnableStackTracePrinting">
+            <summary>
+            When exception printing is enabled, the value of this property controls stack trace printout.
+            When set to <c>true</c> (default), the stack trace is printed in addition to the exception message."
+            When set to <c>false</c>, the exception message is printed without the stack trace."
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Common.SimulatorBase.CallStack">
+            <summary>
+            If the execution finishes in failure, this method returns the call-stack of the Q# operations 
+            executed up to the point when the failure happened.
+            If the execution was successful, this method returns null.
+            </summary>
+            <remarks>
+            Only Q# operations are tracked and reported in the stack trace. Q# functions or calls from 
+            classical hosts like C# or Python are not included.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.SimulatorBase.Get``2">
+            <summary>
+            Returns an instance of the given Type T.
+            If an override has been defined for T, it will return an instance of the replacement Type,
+            otherwise, it will try to create an instance of T and return it.
+            
+            Instances are cached, thus calling this method for the same Operation more than once returns the same instance.
+            
+            If the operation has no body in the Q# file, and no override has been defined in the Simulator,
+            this method will throw an InvalidOperationException.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.SimulatorBase.EnableLogToConsole">
+            <summary>
+            Enables that all Q# messages get logged to the Console output.
+            Logging to the console is enabled by default.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.SimulatorBase.DisableLogToConsole">
+            <summary>
+            Disables logging all Q# messages to the Console output.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.SimulatorBase.EnableExceptionPrinting">
+            <summary>
+                Adds an event to the OnException event that logs stack traces
+                as plain text via the OnLog event (e.g.: for console output).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.SimulatorBase.MaybeDisplayDiagnostic(System.Object)">
+            <summary>
+                Sends diagnostic data to any listening display handlers.
+                Display handlers may discard any unrecognized data, such that
+                no guarantee is made as to any particular action taken as a result
+                of calling this method.
+            </summary>
+            <param name="data">
+                The diagnostic object to be displayed.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.SimulatorBase.DisableExceptionPrinting">
+            <summary>
+                Disables default handling of stack traces, such that stack
+                traces are not written to the OnLog event handler.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.SimulatorBase.CheckQubit(Microsoft.Quantum.Simulation.Core.Qubit,System.String)">
+            <summary>
+            Verifies that the Qubit can be used as part of an operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.SimulatorBase.CheckQubits(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Qubit},System.String)">
+            <summary>
+            Verifies that an array of Qubits can be used as part of an operation.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.SimulatorBase.Allocate">
+            <summary>
+                Implements the Allocate statement as an operation.
+                It just delegates the action to the Simulator's internal QubitManager
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.SimulatorBase.Release">
+            <summary>
+                Implements the Release statement as an operation.
+                It just delegates the action to the Simulator's internal QubitManager
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.SimulatorBase.Borrow">
+            <summary>
+                Implements the Borrow statement as an operation.
+                It just delegates the action to the Simulator's internal QubitManager
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.SimulatorBase.Return">
+            <summary>
+                Implements the Return statement as an operation.
+                It just delegates the action to the Simulator's internal QubitManager
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.SimulatorBase.GetQubitsAvailableToUse">
+            <summary>
+            Implements the GetQubitsAvailableToUse extension function.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.SimulatorBase.GetQubitsAvailableToBorrow">
+            <summary>
+            Implements the GetQubitsAvailableToBorrow extension function.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.SimulatorBase.Message">
+            <summary>
+                Implements the Log statement as an operation. It just calls Console.WriteLine.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.SimulatorBase.DrawRandomInt">
+            <summary>
+                Implements the DrawRandomInt operation from the
+                Microsoft.Quantum.Random namespace.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.SimulatorBase.DrawRandomDouble">
+            <summary>
+                Implements the DrawRandomDouble operation from the
+                Microsoft.Quantum.Random namespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.SimulatorBase.StartBranchingBasedOnMeasurement(Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Result},Microsoft.Quantum.Simulation.Core.IQArray{Microsoft.Quantum.Simulation.Core.Result})">
+            <summary>
+            By default, 1 indicates that all results are equal, i.e. the statement is to enter the then-clause,
+            and 0 indicates that they are not, i.e. the statement is to enter then else-clause.
+            If both arrays are null, then 1 is returned.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.SimulatorBase.StartBranchingBasedOnMeasurement(Microsoft.Quantum.Simulation.Core.Result,Microsoft.Quantum.Simulation.Core.Result)">
+            <summary>
+            By default, 1 indicates that both results are equal, i.e. the statement is to enter the then-clause.
+            and 0 indicates that they are not, i.e. the statement is to enter then else-clause.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.StackFrame">
+            <summary>
+            Stores information about Q# stack frames. During successful execution keeps track only of Callable and Argument.
+            When the exception happens, the rest of the information is populated by <see cref="M:Microsoft.Quantum.Simulation.Common.StackFrame.PopulateSourceLocations(System.Collections.Generic.Stack{Microsoft.Quantum.Simulation.Common.StackFrame},System.Diagnostics.StackFrame[])"/>
+            method.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Common.StackFrame.Callable">
+            <summary>
+            Callable corresponding to the stack frame
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Common.StackFrame.Argument">
+            <summary>
+            Arguments passed to the callable in the stack frame
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Common.StackFrame.SourceFile">
+            <summary>
+            The path to the source where operation is defined
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Common.StackFrame.FailedLineNumber">
+            <summary>
+            One based line number in the operation that resulted in failure. Note that for automatically derived Adjoint and Controlled 
+            variants of the operation, the line always points to the operation declaration
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Common.StackFrame.DeclarationStartLineNumber">
+            <summary>
+            One based line number where the declaration starts.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Common.StackFrame.DeclarationEndLineNumber">
+            <summary>
+            One based line number of the first line after the declaration.
+            The value -1, if the declaration ends on the last line of the file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.StackFrame.GetOperationSourceFromPDB">
+            <summary>
+            Uses PortablePDBs and SourceLink to get the source of failed operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.StackFrame.GetURLFromPDB">
+            <summary>
+            Uses PortablePDBs and SourceLink to get URL for file and line number.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.StackFrame.GetBestSourceLocation">
+            <summary>
+                Gets the best possible source location for this stack frame.
+                If the source is not available on local machine, the source
+                location will be replaced by a URL pointing to GitHub repository.
+            </summary>
+            <remarks>
+                This is more costly than <see cref="P:Microsoft.Quantum.Simulation.Common.StackFrame.SourceFile"/> because it
+                checks if source file exists on disk.
+                If the file does not exist it calls <see cref="M:Microsoft.Quantum.Simulation.Common.StackFrame.GetURLFromPDB"/> to get the URL
+                which is also more costly than <see cref="P:Microsoft.Quantum.Simulation.Common.StackFrame.SourceFile"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.StackFrame.ToStringWithBestSourceLocation">
+            <summary>
+            The same as <see cref="M:Microsoft.Quantum.Simulation.Common.StackFrame.ToString"/>, but tries to point to best source location.
+            If the source is not available on local machine, source location will be replaced 
+            by URL pointing to GitHub repository.
+            This is more costly than <see cref="M:Microsoft.Quantum.Simulation.Common.StackFrame.ToString"/> because it checks if source file exists on disk.
+            If the file does not exist it calls <see cref="M:Microsoft.Quantum.Simulation.Common.StackFrame.GetURLFromPDB"/> to get the URL
+            which is also more costly than <see cref="M:Microsoft.Quantum.Simulation.Common.StackFrame.ToString"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.StackFrame.PopulateSourceLocations(System.Collections.Generic.Stack{Microsoft.Quantum.Simulation.Common.StackFrame},System.Diagnostics.StackFrame[])">
+            <summary>
+            Finds correspondence between Q# and C# stack frames and populates Q# stack frame information from C# stack frames
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.StackFrame.GetNextQSharpStackFrame(Microsoft.Quantum.Simulation.Common.StackFrame[],System.Int32@)">
+            <summary>
+            Return next Q# stack frame that has enough information to match
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.StackFrame.GetNextCSharpStackFrame(System.Diagnostics.StackFrame[],System.Int32@)">
+            <summary>
+            Return next C# stack frame
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.StackFrame.IsMatch(System.Diagnostics.StackFrame,Microsoft.Quantum.Simulation.Common.StackFrame)">
+            <summary>
+            Check if Q# stack frame and C# stack frame match (refer to the same location in the code)
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Common.StackFrame.PopulateQSharpFrameFromCSharpFrame(System.Diagnostics.StackFrame,Microsoft.Quantum.Simulation.Common.StackFrame)">
+            <summary>
+            Copy information missing in Q# stack frame from C# stack frame (only FailedLineNumber curently)
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Common.StackTraceCollector">
+            <summary>
+            Tracks Q# operations call-stack till the first failure resulting in <see cref="E:Microsoft.Quantum.Simulation.Common.SimulatorBase.OnFail"/>
+            event invocation.  
+            </summary>
+            <remarks>
+            Only Q# operations are tracked and reported in the stack trace. Q# functions or calls from 
+            classical hosts like C# or Python are not included.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Common.StackTraceCollector.CallStack">
+            <summary>
+            If failure has happened returns the call-stack at time of failure.
+            Returns null if the failure has not happened.
+            </summary>
+        </member>
+    </members>
+</doc>

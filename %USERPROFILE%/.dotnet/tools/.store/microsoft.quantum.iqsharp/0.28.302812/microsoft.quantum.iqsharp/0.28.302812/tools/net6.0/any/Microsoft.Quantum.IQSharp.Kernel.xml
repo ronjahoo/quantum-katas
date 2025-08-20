@@ -1,0 +1,388 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Quantum.IQSharp.Kernel</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.ClientInfoContent">
+            <summary>
+                Represents information returned to the client about the current
+                kernel instance, such as the current hosting environment.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.ClientInfoListener">
+            <summary>
+                Comms service that registers new information received from the
+                client with an appropriate metadata controller. This allows for
+                the client to provide metadata not initially available when the
+                kernel starts, such as the browser's user agent string.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.MessageExtensions">
+            <summary>
+            Extensions for the Jupyter Core Message
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.MessageExtensions.To``1(Microsoft.Jupyter.Core.Protocol.Message)">
+            <summary>
+            Deserializes the message content into the requested type.
+            </summary>
+            <typeparam name="T">Type to deserialize the content of the message as</typeparam>
+            <param name="message">The Jupyter core message</param>
+            <returns>The message deserialized as the requested type</returns>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.ExperimentalFeatureContent">
+            <summary>
+                Message content to be received when a client asks for an
+                experimental feature to be turned on.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.ExperimentalFeatureContent.FeatureName">
+            <summary>
+                The name of the experimental feature to be enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.ExperimentalFeatureContent.OptionalDependencies">
+            <summary>
+                The names and versions of any optional packages used with the
+                requested experimental feature.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.ExperimentalFeatureEnabledEvent">
+            <summary>
+                Event type for when a Python client enables an experimental
+                feature.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.ExperimentalFeaturesShellHandler">
+            <summary>
+                Shell handler that allows for firing off events when a Python
+                client enables an experimental feature via
+                <c>qsharp.experimental</c>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.Extensions">
+            <summary>
+                 Extension methods to be used with various IQ# and Jupyter objects.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.Extensions.AddIQSharpKernel``1(``0)">
+            <summary>
+                Adds services required for the IQ# kernel to a given service
+                collection.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.CompletionEventArgs">
+            <summary>
+                Arguments for the <see cref="T:Microsoft.Quantum.IQSharp.Kernel.CompletionEvent"/> event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.CompletionEventArgs.NCompletions">
+            <summary>
+                The number of completions returned by the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.CompletionEventArgs.Duration">
+            <summary>
+                 The time taken to respond to the completion request.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.CompletionEvent">
+            <summary>
+                 An event raised when completions are provided in response to a
+                 completion request.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine">
+            <summary>
+             The IQsharpEngine, used to expose Q# as a Jupyter kernel.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.Settings">
+            <summary>
+                 Settings for the IQ# execution engine that are set only at launch.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.GetEngineService``1">
+            <summary>
+                Internal-only method for getting services used by this engine.
+                Mainly useful in unit tests, where internal state of the
+                engine may need to be tested to properly mock communications
+                with Azure services.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.Initialized">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.#ctor(Microsoft.Jupyter.Core.IShellServer,Microsoft.Extensions.Options.IOptions{Microsoft.Jupyter.Core.KernelContext},Microsoft.Extensions.Options.IOptions{Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.Settings},Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine},System.IServiceProvider,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,Microsoft.Quantum.IQSharp.IPerformanceMonitor,Microsoft.Jupyter.Core.IShellRouter,Microsoft.Quantum.IQSharp.IMetadataController,Microsoft.Jupyter.Core.ICommsRouter,Microsoft.Quantum.IQSharp.IEventService)">
+            <summary>
+            The main constructor. It expects an `ISnippets` instance that takes care
+            of compiling and keeping track of the code Snippets provided by users.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.Start">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.AttachCommsListeners">
+            <summary>
+                Attaches events to listen to comm_open messages from the
+                client.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.Complete(System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.RegisterPackageLoadedEvent(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger,Microsoft.Quantum.IQSharp.IReferences)">
+            <summary>
+                Registers an event handler that searches newly loaded packages
+                for extensions to this engine (in particular, for result encoders).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.Execute(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpEngine.ExecuteMundane(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <summary>
+            This is the method used to execute Jupyter "normal" cells. In this case, a normal
+            cell is expected to have a Q# snippet, which gets compiled and we return the name of
+            the operations found. These operations are then available for simulation and estimate.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.IQSharpKernelApp">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpKernelApp.#ctor(Microsoft.Jupyter.Core.KernelProperties,System.Action{Microsoft.Extensions.DependencyInjection.ServiceCollection})">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpKernelApp.InitServiceProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.KernelStartedEvent">
+            <summary>
+                Event type for when the Kernel is started
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.KernelStoppedEvent">
+            <summary>
+                Event type for when the Kernel is stopped
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.KernelEventsExtensions">
+            <summary>
+                Extension methods to make it easy to consume and trigger Kernel events
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.KernelEventsExtensions.OnKernelStarted(Microsoft.Quantum.IQSharp.IEventService)">
+            <summary>
+                Gets the typed EventPubSub for the KernelStarted event
+            </summary>
+            <param name="eventService">The event service where the EventSubPub lives</param>
+            <returns>The typed EventPubSub for the KernelStarted event</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.KernelEventsExtensions.OnKernelStopped(Microsoft.Quantum.IQSharp.IEventService)">
+            <summary>
+                Gets the typed EventPubSub for the KernelStopped event
+            </summary>
+            <param name="eventService">The event service where the EventSubPub lives</param>
+            <returns>The typed EventPubSub for the KernelStopped event</returns>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.Constants">
+            <summary>
+            These are the list of properties for the Q# Jupyter Kernel.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Kernel.Constants.IQSharpKernelProperties">
+            <summary>
+                The properties for this kernel (e.g. versions, language name,
+                etc.).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.DebugMagic">
+            <summary>
+                A magic command that can be used to step through the execution of a
+                quantum operation using the full-state simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.DebugMagic.#ctor(Microsoft.Jupyter.Core.ISymbolResolver,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,Microsoft.Jupyter.Core.IShellRouter,Microsoft.Jupyter.Core.IShellServer,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Kernel.DebugMagic})">
+            <summary>
+                Constructs a new magic command given a resolver used to find
+                operations and functions, a configuration source used to set
+                configuration options, and a shell router and shell server for
+                communication with the client.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.DebugMagic.SymbolResolver">
+            <summary>
+                 The symbol resolver used by this magic command to find
+                 operations or functions to be simulated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.DebugMagic.ConfigurationSource">
+            <summary>
+                The configuration source used by this magic command to control
+                simulation options (e.g.: dump formatting options).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.DebugMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.DebugMagic.RunCancellable(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.DebugMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+                Simulates an operation given a string with its name and a JSON
+                encoding of its arguments.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.QirMagic">
+            <summary>
+                A magic command that can be used to generate QIR from a given
+                operation as an entry point.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.QirMagic.#ctor(Microsoft.Jupyter.Core.ISymbolResolver,Microsoft.Quantum.IQSharp.AzureClient.IEntryPointGenerator,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.SimulateMagic},Microsoft.Quantum.IQSharp.AzureClient.IAzureClient,Microsoft.Jupyter.Core.ISymbolResolver,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,Microsoft.Quantum.IQSharp.IMetadataController,Microsoft.Quantum.IQSharp.IEventService,Microsoft.Quantum.IQSharp.ISnippets)">
+            <summary>
+                Constructs the magic command from DI services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.QirMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.QirMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <summary>
+                Runs the QIR magic.
+                In addition to the public parameters documented in the %qir magic command,
+                it also supports some internal parameters used by the `QSharpCallable._repr_qir_`
+                method from the `qsharp` Python Package.
+                #### Optional parameters
+                - `target:string`: The intended execution target for the compiled entrypoint.
+                  Defaults to the active Azure Quantum target (which can be set with `%azure.target`).                
+                  Otherwise, defaults to a generic target, which may not work when running on a specific target.
+                - `target_capability:string`: The capability of the intended execution target.
+                  If `target` is specified or there is an active Azure Quantum target,
+                  defaults to the target's maximum capability.
+                  Otherwise, defaults to `FullComputation`, which may not be supported when running on a specific target.
+                - `output_file:string`: The file path for where to save the output QIR.
+                  If empty, a uniquely-named temporary file will be created.
+                - `output_format:QirOutputFormat`: The QIR output format.
+                  Defaults to `IR`.
+                  Possible options are:
+                  * `IR`: Human-readable Intermediate Representation in plain-text
+                  * `Bitcode`: LLVM bitcode (only when writing to a output file)
+                  * `BitcodeBase64`: LLVM bitcode encoded as Base64
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent">
+            <summary>
+                 Contains the JSON representation of the <see cref="P:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent.ExecutionPath"/>
+                 and metadata used in the visualization of the execution path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent.#ctor(Newtonsoft.Json.Linq.JToken,System.String,System.Int32,Microsoft.Quantum.IQSharp.Jupyter.TraceVisualizationStyle)">
+            <summary>
+                Initializes <see cref="T:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent"/> with the
+                given <see cref="P:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent.ExecutionPath"/>.
+            </summary>
+            <param name="executionPath">
+                <see cref="P:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent.ExecutionPath"/> (as a <see cref="T:Newtonsoft.Json.Linq.JToken"/>) to be visualized.
+            </param>
+            <param name="id">
+                HTML div ID to inject visualization into.
+            </param>
+            <param name="renderDepth">
+                The initial renderDepth at which to visualize the execution path.
+            </param>
+            <param name="style">
+                The  <see cref="T:Microsoft.Quantum.IQSharp.Jupyter.TraceVisualizationStyle"/> for visualizing the execution path.
+            </param>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent.ExecutionPath">
+            <summary>
+                The <see cref="P:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent.ExecutionPath"/> (as a <see cref="T:Newtonsoft.Json.Linq.JToken"/>) to be rendered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent.Id">
+            <summary>
+                ID of the HTML div that will contain the visualization.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent.Style">
+            <summary>
+                Style for visualization.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.ExecutionPathVisualizerContent.RenderDepth">
+            <summary>
+                Initial depth at which to render operations used in the execution path.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.TraceMagic">
+            <summary>
+                A magic command that can be used to visualize the execution
+                path of operations and functions traced out by the simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.TraceMagic.#ctor(Microsoft.Jupyter.Core.ISymbolResolver,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Kernel.TraceMagic})">
+            <summary>
+                Constructs a new magic command given a resolver used to find
+                operations and functions, and a configuration source used to set
+                configuration options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.TraceMagic.SymbolResolver">
+            <summary>
+                 The symbol resolver used by this magic command to find the operation
+                 to be visualized.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.TraceMagic.ConfigurationSource">
+            <summary>
+                The configuration source used by this magic command to control
+                visualization options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.TraceMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.TraceMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <summary>
+                Outputs a visualization of a runtime execution path of an operation given
+                a string with its name and a JSON encoding of its arguments.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.IQSharpSymbolToTextResultEncoder">
+            <summary>
+                Encodes Q# symbols into plain text, e.g. for printing to the console.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.IQSharpSymbolToTextResultEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpSymbolToTextResultEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a displayable object is an IQ# symbol, and if so,
+                returns an encoding of that symbol into plain text.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Kernel.IQSharpSymbolToHtmlResultEncoder">
+            <summary>
+                 Encodes Q# symbols into HTML for display in Jupyter Notebooks and
+                 other similar interfaces.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Kernel.IQSharpSymbolToHtmlResultEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Kernel.IQSharpSymbolToHtmlResultEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a displayable object is an IQ# symbol, and if so,
+                returns an encoding of that symbol into HTML.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.IsExternalInit">
+            Allows using init-only properties in netstandard2.1 project. Note that
+            init-only is only enforced for net5.0 and later callers.
+        </member>
+    </members>
+</doc>

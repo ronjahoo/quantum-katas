@@ -1,0 +1,1563 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Quantum.Runtime.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Quantum.Simulation.Core.AbstractCallable">
+            <summary>
+                Represent a Quantum Operation, a list of instructions to be executed
+                in a Quantum Machine.
+                Each Operation receives in its constructor an OperationFactory, with
+                the instance of the Factory that created the operation instance and
+                that can be used to get instances of other operations as needed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.AbstractCallable.__Init__">
+            <summary>
+            This method is called once, to let the Operation initialize and verify its dependencies.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.AbstractCallable.GetRuntimeMetadata(Microsoft.Quantum.Simulation.Core.IApplyData)">
+            <summary>
+            Retrieves the runtime metadata of the Operation. If the Operation has no associated
+            runtime metadata, returns <c>null</c>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.Default">
+            <summary>
+            Creates default values of Q# types.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.Default.BasicValues">
+            <summary>
+            A dictionary from basic types to their default values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.Default.Tuples">
+            <summary>
+            A list of all generic tuple types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Default.OfType``1">
+            <summary>
+            Returns the default value of the Q# type. May return null when null is the default value of the type, or if
+            the type is not a valid Q# type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Default.OfType(System.Type)">
+            <summary>
+            Returns the default value of the Q# type. May return null when null is the default value of the type, or if
+            the type is not a valid Q# type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Default.OfAnyType(System.Type)">
+            <summary>
+            Enumerates the default values of different kinds of types. Yields null if the given type is not the right
+            kind, and yields a non-null value if a default value is found.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Default.OfArrayType(System.Type)">
+            <summary>
+            If the given type is a Q# array type, returns the default array of that type, or null otherwise.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Default.OfTupleType(System.Type)">
+            <summary>
+            If the given type is a Q# tuple type, returns the default tuple of that type, or null otherwise.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Default.OfUserDefinedType(System.Type)">
+            <summary>
+            If the given type is a Q# user-defined type, returns the default value of that type, or null otherwise.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.EntryPointInfo`2">
+            <summary>
+            Base class containing information about a Q# entry point.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IonQEntryPointInfo`2">
+            <summary>
+            Base class containing information about an entry point 
+            for a Q# executable targeted for a IonQ quantum processor.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.QCIEntryPointInfo`2">
+            <summary>
+            Base class containing information about an entry point 
+            for a Q# executable targeted for a QCI quantum processor.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.QuantinuumEntryPointInfo`2">
+            <summary>
+            Base class containing information about an entry point 
+            for a Q# executable targeted for a Quantinuum quantum processor.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.HoneywellEntryPointInfo`2">
+            <summary>
+            Base class containing information about an entry point 
+            for a Q# executable targeted for a Honeywell quantum processor.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.RigettiEntryPointInfo`2">
+            <summary>
+            Base class containing information about an entry point 
+            for a Q# executable targeted for a Rigetti quantum processor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Extensions.GetQubits(System.Object)">
+            <summary>
+            Returns all the qubits contained in a given type. 
+            </summary>
+            <param name="value">The object from which qubits are extracted</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.Function`2">
+            <summary>
+                The base class for all Functions.
+            </summary>
+            <typeparam name="I">Type of input parameters.</typeparam>
+            <typeparam name="O">Type of return values.</typeparam>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.FunctionPartial`3">
+            <summary>
+                This class saves the operation resulting from doing a Partial Application
+                on a q# function.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IAdjointable">
+            <summary>
+                Represents an operation that has an Adjoint and whose
+                input Type is not resolved until it gets Applied at runtime.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.GenericAdjoint">
+            <summary>
+                Represents the result of applying Adjoint to an operation
+                input Type is not resolved until it gets Applied at runtime.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IControllable">
+            <summary>
+                Represents an operation that has a Controlled operation and whose
+                input Type is not resolved until it gets Applied at runtime.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.GenericControlled">
+            <summary>
+                Represents the result of applying Controlled to an operation
+                input Type is not resolved until it gets Applied at runtime.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.ICallable">
+            <summary>
+                Represents an operation whose
+                input and output Types are not resolved until it gets Applied at runtime.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.GenericCallable">
+            <summary>
+                This is a wrapper class that holds an Operation's Type and will
+                try to create an instance of it when Apply is called.
+               
+                During apply, it uses the input and output parameters to resolve
+                any generic parameters of the BaseOp using reflection.
+                
+                Notice GenericOperations are not expected to extend this class. They
+                should instead extend Operation and stay generic. This class will take
+                care of resolving the Generic types are runtime based on the Apply types.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.GenericCallable.FindClosedType(System.Type,System.Type)">
+            <summary>
+                Finds the ClosedType for the BaseOp based on the given Input (I) and
+                Output (O) Types that the Apply method is expecting.
+                
+             This method finds the ClosedType of the based (generic) operation...
+             For example, if the base operation is Some ['T] : Unitary [('T, long)]
+             and it is called with a.Apply((bool, long))
+             then it maps maps 'T == bool
+             and returns 
+             typeof(SomeOp [bool ])
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.Quantum.Simulation.Core.GenericCallable.MatchOperationTypes(System.Type,System.Type,System.Type)" -->
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.Quantum.Simulation.Core.GenericCallable.ResolveTheUnresolved(System.Type[])" -->
+        <member name="M:Microsoft.Quantum.Simulation.Core.GenericCallable.Resolve(System.Type,System.Type,System.Type[])">
+            <summary>
+            Populates the generic Type Arguments based on the resolved type.
+            Basically if the resolved type comes from a generic type, then whatever resolved values it 
+            had are applied to original.
+            This method is the one that computes what the Type the GenericParameter should take based on the input argument.
+            It recursively checks if the Operations is expecting a
+            ('T, long) and it receives a (bool, long) it maps 'T == bool.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.GenericPartial">
+            <summary>
+                Represents the result of doing a partial application to an operation whose
+                input Type is not resolved until it gets Applied at runtime.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.GenericPartial.ExtractQubits">
+            <summary>
+            Extracts the Qubits capatured by the parameters of this Partial Application.
+            If received a Mapper, then it Extracts the qubits of the result of calling the Mapper with no new qubits.
+            If received a Partial Tuple, it Extracts the qubits from the Partial Tuple itself.
+            In both cases, it uses a generic QubitsExtractor as we don't have the type info at compile time.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.GenericPartial.Combine(System.Type[],System.Collections.Generic.Stack{System.Type})">
+            <summary>
+            Combines the original partial values, with the args received as parameter to return 
+            a fully populated instance of targetType
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.Quantum.Simulation.Core.GenericPartial.PartialApplicationTypes(System.Type,System.Type,System.Type,System.Type)" -->
+        <member name="T:Microsoft.Quantum.Simulation.Core.PartialMapper">
+            <summary>
+            This class creates a function that maps the partial Type resulting from
+            a partial application to the original Type expected by the operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.PartialMapper.TupleTypes">
+            <summary>
+            To easily get the correct ValueTuple type based on the number of items it needs:
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.PartialMapper.CastTuple(System.Type,System.Object)">
+            <summary>
+            Because C# can't automatically cast from (IUnitary, long) to (ICallable, long), sigh...
+            we do the work for it here...
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.PartialMapper.IsValidValue(System.Type,System.Object)">
+            <summary>
+            Verifies that the object received as argument is congruent
+            with the Type that is expected to be applied to.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.PartialMapper.Combine(System.Object[],System.Collections.Generic.Stack{System.Object})">
+            <summary>
+            Combines the original partial values, with the args received as parameter to return 
+            a fully populated instance of targetType
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.PartialMapper.Create``2(System.Object)">
+            <summary>
+            Creates a Func that maps a tuple P as tuple I based on the values on partial.
+            Partial itself must be a tuple congruent with I, that is, partial must be a Tuple
+            with the same number and same Type of fields, except for some of them whose value is
+            Missing (AbstractOperation._)
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IUnitary">
+            <summary>
+                Represents an operation that has both a Controlled and an Adjoint 
+                operation and whose input Type is not resolved until it gets 
+                Applied at runtime.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IApplyData">
+            <summary>
+            Represents data that can be used as input arguments or return values of an Apply operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.IApplyData.Qubits">
+            <summary>
+            If there are no qubits contained in the value returns null 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.IgnorableAssert.disabled">
+            <summary>
+            This flag allows to enable or disable IgnorableAssert.Assert from firing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.IgnorableAssert.Assert(System.Boolean,System.String)">
+            <summary>
+            Equivalent of Debug.Assert, but can be disabled for the purposes of testing error cases.
+            </summary>
+            <param name="condition">The conditional expression to evaluate. If the condition is true, a failure message is not sent.</param>
+            <param name="message">The message to output</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IOperationFactory">
+            <summary>
+                An OperationFactory allows the creation at runtime
+                of Operation instances.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.IOperationFactory.Name">
+            <summary>
+            Name of the operation factory. Usually this corresponds to the names of the 
+            simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.IOperationFactory.Get``1(System.Type)">
+            <summary>
+            Returns an instance of the requested operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.IOperationFactory.Get``2">
+            <summary>
+            Returns an instance of the requested operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.IOperationFactory.Run``3(``1)">
+            <summary>
+                Executes an Operation. The execution may be asynchronous, 
+                so it returns a Task.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.IOperationFactory.StartOperation(Microsoft.Quantum.Simulation.Core.ICallable,Microsoft.Quantum.Simulation.Core.IApplyData)">
+            <summary>
+            Called by operation, before the start of every operation. Used to enable OnOperationStart
+            event in simulators.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.IOperationFactory.EndOperation(Microsoft.Quantum.Simulation.Core.ICallable,Microsoft.Quantum.Simulation.Core.IApplyData)">
+            <summary>
+            Called by operation, at the end of every operation. Used to enable OnOperationEnd
+            event in simulators.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.IOperationFactory.Fail(System.Runtime.ExceptionServices.ExceptionDispatchInfo)">
+            <summary>
+            Called by operation, when an exception occurs. Used to enable OnFail
+            event in simulators. 
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.OperationFunctor">
+            <summary>
+            Functor specialization of the operation appearing in the operation call graph
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.OperationFunctor.Body">
+            <summary>
+            Operation body, defined by Q# keyword <code>body</code>
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.OperationFunctor.Adjoint">
+            <summary>
+            Adjoint specialization of the operation, defined by Q# keyword <code>adjoint</code>
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.OperationFunctor.Controlled">
+            <summary>
+            Controlled specialization of the operation, defined by Q# keyword <code>controlled</code>
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.OperationFunctor.ControlledAdjoint">
+            <summary>
+            Controlled Adjoint specialization of the operation, defined by
+            Q# keyword <code>controlled adjoint</code>
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IAdjointable`1">
+            <summary>
+                Represents an operation that has an Adjoint.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.Adjointable`1">
+            <summary>
+                Base class for Operations that have an Adjoint. Both the Body and AdjointBody methods
+                need to be implemented.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.AdjointedOperation`2">
+            <summary>
+                Class used to represents an operation that has been adjointed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.AdjointedOperation`2.GetRuntimeMetadata(Microsoft.Quantum.Simulation.Core.IApplyData)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IControllable`1">
+            <summary>
+            Represents an operation that has a Controlled operation
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.Controllable`1">
+            <summary>
+                Base class for operations that have a ControlledOperation. Both the Body and ControlledBody methods
+                need to be implemented.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.ControlledOperation`2">
+            <summary>
+                This class is used to represents an operation that has been controlled.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.ControlledOperation`2.GetRuntimeMetadata(Microsoft.Quantum.Simulation.Core.IApplyData)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IOperationWrapper">
+            <summary>
+            An operation that wraps another operation, for example
+            <see cref="T:Microsoft.Quantum.Simulation.Core.AdjointedOperation`2"/>, <see cref="T:Microsoft.Quantum.Simulation.Core.ControlledOperation`2"/>,
+            <see cref="T:Microsoft.Quantum.Simulation.Core.OperationPartial`3"/>,
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.Operation`2">
+            <summary>
+                The base class for all ClosedType quantum operations.
+            </summary>
+            <typeparam name="I">Type of input parameters.</typeparam>
+            <typeparam name="O">Type of return values.</typeparam>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Operation`2.GetRuntimeMetadata(Microsoft.Quantum.Simulation.Core.IApplyData)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Operation`2.FindPartialType(System.Type,System.Object)">
+            <summary>
+                Finds the expected Tuple type from the given partial values and given input type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.OperationPartial`3">
+            <summary>
+                This class saves the operation resulting from doing a Partial Application
+                on a closed type operation.
+                
+                This class is typically initialized passing a partialTuple from which
+                we create a Mapper that maps the partial arguments to the original type.
+                Optionally it can receive a Mapper to do the same.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.OperationPartial`3.GetRuntimeMetadata(Microsoft.Quantum.Simulation.Core.IApplyData)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IUnitary`1">
+            <summary>
+            Represents an operation that has both, a Controlled and Adjoint 
+            version.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.Unitary`1">
+            <summary>
+            Base class for Unitary operations.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IQArray`1">
+            <summary>
+            Represents a collection of objects that can be individually accessed by index.
+            Corresponds to Q# array type.
+            </summary>
+            <typeparam name="T">The type of elements in the list. The type of the Q# array element.</typeparam>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.QArray`1">
+            <summary>
+            Represents a collection of objects that can be individually accessed by index.
+            Corresponds to Q# array type.
+            </summary>
+            <typeparam name="T">The type of elements in the list. The type of the Q# array element.</typeparam>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.QArrayInner.#ctor">
+            <summary>
+            Create an array of length 0, represented by a null pointer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.QArrayInner.#ctor(Microsoft.Quantum.Simulation.Core.QArray{`0}.QArrayInner,System.Boolean)">
+            <summary>
+            Creates a new inner array from an existing one.
+            </summary>
+            <param name="other">The existing inner array.</param>
+            <param name="detach">If true, indicates that the new copy is being detached from the other inner array,
+            so the reference count of the other array should be decremented.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.QArrayInner.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Creates an array that contains elements from the collection argument.
+            </summary>
+            <param name="collection"> Elements with which the array is initialized.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.QArrayInner.#ctor(System.Collections.Generic.IReadOnlyList{`0})">
+            <summary>
+            Creates an array that contains elements from the collection argument.
+            </summary>
+            <param name="collection"> Elements with which the array is initialized.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.QArrayInner.#ctor(`0[])">
+            <summary>
+            Creates an array that contains elements from the collection argument.
+            </summary>
+            <param name="collection"> Elements with which the array is initialized.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.QArrayInner.#ctor(System.Int64)">
+            <summary>
+            Creates an array of size given by capacity and default-initializes array elements. Uses the default Q#
+            value to initialize array elements.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.QArrayInner.Extend(System.Func{`0},System.Int64)">
+            <summary>
+            Extends the length of the array by calling <paramref name="supplier"/> <paramref name="count"/> times to
+            supply a value for each new index.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.#ctor">
+            <summary>
+            Create an array of length 0.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.#ctor(Microsoft.Quantum.Simulation.Core.QArray{`0})">
+            <summary>
+            Create a copy of an existing array.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.#ctor(System.Collections.IEnumerable)">
+            <summary>
+            Creates an array that contains elements from the collection argument.
+            </summary>
+            <param name="collection"> Elements with which the array is initialized.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Creates an array that contains elements from the collection argument.
+            </summary>
+            <param name="collection"> Elements with which the array is initialized.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.#ctor(System.Collections.Generic.IReadOnlyList{`0})">
+            <summary>
+            Creates an array that contains elements from the given argument.
+            </summary>
+            <param name="collection"> Elements with which the array is initialized.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.#ctor(`0[])">
+            <summary>
+            Creates an array that contains elements from the collection argument.
+            </summary>
+            <param name="collection"> Elements with which the array is initialized.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.Create(System.Int64)">
+            <summary>
+            Creates an array of size given by capacity and initializes each array element to the default value it has in
+            Q#.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.Filled(System.Func{`0},System.Int64)">
+            <summary>
+            Creates an array filled by calling <paramref name="supplier"/> <paramref name="count"/> times to supply a
+            value for each index.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.Copy">
+            <summary>
+            Creates a copy of this array.
+            </summary>
+            <returns>The copy</returns>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QArray`1.Length">
+            <summary>
+            The Length of the array. Corresponds to the result of calling <code>Length(arr)</code> in Q#
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QArray`1.Item(System.Int64)">
+            <summary>
+            Returns an element of the array with given index. Corresponds to the
+            result of calling <code>arr[i]</code> in Q#.
+            Allows accessing the underlying item with a long index.
+            </summary>
+            <param name="index">The long index of the element to access</param>
+            <returns>The element</returns>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QArray`1.Item(System.Int32)">
+            <summary>
+            Gets an element by integer index.
+            </summary>
+            <param name="index">The integer index of the element to access</param>
+            <returns>The element</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.Modify(System.Int64,`0)">
+            <summary>
+            Modifies the element at the given index and returns the QArray.
+            Note that the modification is an in-place modification!
+            If the given index is outside the array bounds, it throws 
+            and ArgumentOutOfRangeException.
+            </summary>
+            <param name="index">The long index of the element to access</param>
+            <param name="value">New value of the element</param>
+            <returns>The element</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.Modify(Microsoft.Quantum.Simulation.Core.QRange,Microsoft.Quantum.Simulation.Core.IQArray{`0})">
+            <summary>
+            Modifies the elements at the given indices and returns the QArray.
+            Note that the modification is an in-place modification!
+            If the Length of the given values does not match the number of indices, 
+            or if an index is outside the array bounds, it throws 
+            and ArgumentOutOfRangeException.
+            </summary>
+            <param name="indices">The range of indices of the elements to access</param>
+            <param name="values">New values of the elements</param>
+            <returns>The element</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.Slice(Microsoft.Quantum.Simulation.Core.QRange)">
+            <summary>
+                Returns a sub-array from the given input array, based on the indexes
+                returned by the provided range instance.
+                For example, if the Range elements are [3,2,1], then this method
+                will return an array consisting of the elements 3,2,1 from the 
+                input array.
+                If the input array is null, this method returns null.
+                If the input range is null or empty, this method returns an empty array.
+                If the elements of the range are outside the array bounds, it throws
+                an ArgumentOutOfRangeException
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.Add(Microsoft.Quantum.Simulation.Core.QArray{`0},Microsoft.Quantum.Simulation.Core.IQArray{`0})">
+            <summary>
+                Returns a new QArray with the result of concatenating the
+                two given parameters.
+                If both input arrays are null, it returns null.
+                If one of the input arrays is null, it returns the other.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.Add(Microsoft.Quantum.Simulation.Core.IQArray{`0},Microsoft.Quantum.Simulation.Core.IQArray{`0})">
+            <summary>
+                Returns a new QArray with the result of concatenating the
+                two given parameters.
+                If both input arrays are null, it returns null.
+                If one of the input arrays is null, it returns the other.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray`1.ToString">
+            <summary>
+            Returns string that is a Q# representation of the value of the array.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.QArray">
+            <summary>
+            Contains static methods for creating <see cref="T:Microsoft.Quantum.Simulation.Core.QArray"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QArray.Filled``1(System.Func{``0},System.Int64)">
+            <summary>
+            Creates an array filled by calling <paramref name="supplier"/> <paramref name="count"/> times to supply a
+            value for each index.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.IQArrayJsonConverter">
+            <summary>
+            This JsonConverter converts instances of IQArray['T] as QArray['T]
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.IQArrayJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Writers the QArray.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.IQArrayJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Reads the <see cref="T:Microsoft.Quantum.Simulation.Core.QArray`1"/>
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.QRange">
+            <summary>
+            Corresponds to Q# Range type. For example, the Q# value of <code>start .. step .. end</code> 
+            is of the QRange type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QRange.#ctor(System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Creates a range corresponding to Q# value <code>start .. step .. end</code>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QRange.#ctor(System.Int64,System.Int64)">
+            <summary>
+            Creates a range with step equal to 1, corresponding to 
+             Q# value of <code>[start .. end]</code> 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QRange.Start">
+            <summary>
+            First element (inclusive)
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QRange.Step">
+            <summary>
+            Number to increment on each step. 
+            If negative, the absolute value of the number will
+            be subtracted on each step.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QRange.End">
+            <summary>
+            The last element (inclusive)
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QRange.Empty">
+            <summary>
+            Returns an empty range.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QRange.IsEmpty">
+            <summary>
+            Returns true if the range is empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QRange.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Implementation of <see cref="M:System.Collections.IEnumerable.GetEnumerator"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QRange.GetEnumerator">
+            <summary>
+            Implementation of <see cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QRange.ToString">
+            <summary>
+            Prints Q# representation of the value.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.QTuple`1">
+            <summary>
+            Generic implementation for Q# Tuples. A QTuple is the base class for tuple-based UDTs,
+            where 'T is the corresponding base ValueTuple.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QTuple`1.#ctor(`0)">
+            <summary>
+                Basic constructor
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QTuple`1.Data">
+            <summary>
+            The original valueTuple
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QTuple`1.Microsoft#Quantum#Simulation#Core#IApplyData#Value">
+            <summary>
+            IData implementation, returns the base tuple data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.QTuple`1.Microsoft#Quantum#Simulation#Core#IApplyData#Qubits">
+            <summary>
+            By default, uses a QubitsExtractor to identify the fields with Qubits.
+            However, most QTuples will override this property as they know at compile time
+            the Qubit fields.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.Qubit">
+            <summary>
+            Represents a Quantum Bit.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Qubit.#ctor(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            Used by UDTs that extend Qubit. 
+            Sets id to MaxValue for null qubits. 0 is typically the default qubit.id.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Qubit.#ctor(System.Int32)">
+            <summary>
+            Creates a qubit with given ID
+            </summary>
+            <param name="id">ID of the qubit</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Qubit.Equals(Microsoft.Quantum.Simulation.Core.Qubit,Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            Check if two qubits have equal IDs
+            </summary>
+            <param name="q1">First qubit being compared</param>
+            <param name="q2">Second qubit being compared</param>
+            <returns>True if two qubits have equal ids</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Qubit.GetHashCode(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            Qubits hash code based in Id
+            </summary>
+            <param name="q">Qubit for which hash should be computed</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.QubitsExtractor">
+            <summary>
+            A QubitsExtractor uses reflection to extract the Qubits from an object, i.e., the Qubits from a ValueTuple.
+            It is implemented as a Factory where you must call Get() to get an Instance of the corresponding Extractor.
+            There is one (and only one) Extractor per Type. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.QubitsExtractor.Get(System.Type)">
+            <summary>
+             Creates a new Extractor and identifies the Fields for the given Type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.QVoid">
+            <summary>
+            Used by ICallable when Input or Output parameters are zero-arity tuples.
+            Corresponds to Q# type zero-arity tuple type <code>()</code>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.QVoid.Instance">
+            <summary>
+            The instance of zero-arity tuple <code>()</code>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.RuntimeMetadata">
+            <summary>
+            Contains the metadata associated with an operation's runtime execution path.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.RuntimeMetadata.Label">
+            <summary>
+            Label of gate.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.RuntimeMetadata.FormattedNonQubitArgs">
+            <summary>
+            Non-qubit arguments provided to gate, formatted as string.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.RuntimeMetadata.IsAdjoint">
+            <summary>
+            True if operation is an adjoint operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.RuntimeMetadata.IsControlled">
+            <summary>
+            True if operation is a controlled operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.RuntimeMetadata.IsMeasurement">
+            <summary>
+            True if operation is a measurement operation.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Microsoft.Quantum.Simulation.Core.RuntimeMetadata.IsComposite" -->
+        <member name="P:Microsoft.Quantum.Simulation.Core.RuntimeMetadata.Children">
+            <summary>
+            Group of operations for each classical branch (<c>true</c> and <c>false</c>).
+            </summary>
+            <remarks>
+            This is used in classically-controlled operations.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.RuntimeMetadata.Controls">
+            <summary>
+            List of control registers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Simulation.Core.RuntimeMetadata.Targets">
+            <summary>
+            List of target registers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.TypeExtensions.GetNativeImplementation(System.Type)">
+            <summary>
+            It will return the Native implementation Type that should be
+            used at runtime for the given Type.
+            
+            Native implementations are identified by a nested type
+            that is a subclass of the given Type.
+            
+            If there are not Native implementations, this method returns null
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.TypeExtensions.GetTupleFieldTypes(System.Type)">
+            <summary>
+            Returns a list of length one containing arg, if arg is not a tuple, and a list of the field types of arg, if arg is a tuple.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.TypeExtensions.GetNonQubitArgumentsAsString(System.Object)">
+            <summary>
+            Given an <see cref="T:System.Object"/>, retrieve its non-qubit fields as a string.
+            Returns null if no non-qubit fields found.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.TypeExtensions.Normalize(System.Type)">
+            <summary>
+            Makes sure that Generic types are all the same to avoid cast errors
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.ResultValue">
+            <summary>
+            Represents the Result of a Measurement. Corresponds to Q# type <code>Result</code>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.ResultValue.Zero">
+            <summary>
+            Corresponds to measuring +1 eigenstate of an observable or 
+            measuring |0⟩ in computational basis.
+            Represents Q# <code>Zero</code> constant.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.ResultValue.One">
+            <summary>
+            Corresponds to measuring -1 eigenstate of an observable or 
+            measuring |1⟩ in computational basis.
+            Represents Q# <code>One</code> constant.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.ResultConst">
+            <summary>
+            Represents the Result of a Measurement when value is known at the construction time. 
+            Corresponds to Q# type <code>Result</code>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.Result">
+            <summary>
+            Represents the Result of a Measurement. Corresponds to Q# type <code>Result</code>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.Result.GetValue">
+            <summary>
+            Returns the actual value of the result.
+            Can be overridden to allow implementaiton of delayed result 
+            retrieval or controlled access to the usage of the result.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.Result.Zero">
+            <summary>
+            Corresponds to measuring +1 eigenstate of an observable or 
+            measuring |0⟩ in computational basis.
+            Represents Q# <code>Zero</code> constant.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.Result.One">
+            <summary>
+            Corresponds to measuring -1 eigenstate of an observable or 
+            measuring |1⟩ in computational basis.
+            Represents Q# <code>One</code> constant.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.Pauli">
+            <summary>
+            Represents single-qubit Pauli operator.
+            Corresponds to Q# type <code>Pauli</code>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.Pauli.PauliI">
+            <summary>
+            Pauli Identity operator. Corresponds to Q# constant <code>PauliI</code>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.Pauli.PauliX">
+            <summary>
+            Pauli X operator. Corresponds to Q# constant <code>PauliX</code>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.Pauli.PauliY">
+            <summary>
+            Pauli Y operator. Corresponds to Q# constant <code>PauliY</code>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.Simulation.Core.Pauli.PauliZ">
+            <summary>
+            Pauli Z operator. Corresponds to Q# constant <code>PauliZ</code>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.ExecutionFailException">
+            <summary>
+            Exception thrown when the "fail" statement is reached in a Q# file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.ExecutionFailException.#ctor(System.String)">
+            <summary>
+            Creates an instance of <see cref="T:Microsoft.Quantum.Simulation.Core.ExecutionFailException"/>.
+            </summary>
+            <param name="message">String that is a part of  Q# fail statement</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.ResultConverter">
+            <summary>
+            This class is used to serialize Result instances using the default values.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.UDTBase`1">
+            <summary>
+            Base class for all Q# user-defined types (UDT). Provides unwrapping and integration with debugger.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Simulation.Core.UDTPartial`3">
+            <summary>
+            An instance of a partially applied user-defined type.
+            Calling the Apply method of this instance will return a new instance of the originally
+            applied type.
+            </summary>
+            <typeparam name="P">The Type of the argument needed to fully-create the original UDT instance.</typeparam>
+            <typeparam name="B">The original base type of the UDT.</typeparam>
+            <typeparam name="U">The original UDT type.</typeparam>
+        </member>
+        <member name="M:Microsoft.Quantum.Simulation.Core.UDTPartial`3.GetRuntimeMetadata(Microsoft.Quantum.Simulation.Core.IApplyData)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.Argument">
+            <summary>
+            An argument to a QIR callable.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.Argument.Name">
+            <summary>
+            The name of the argument.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.Argument.Value">
+            <summary>
+            The value of the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.Argument.#ctor(System.String,Microsoft.Quantum.Runtime.ArgumentValue)">
+            <summary>
+            Creates a new argument.
+            </summary>
+            <param name="name">The name of the argument.</param>
+            <param name="value">The value of the argument.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentType">
+            <summary>
+            The type of an argument to a QIR callable.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentType.Bool">
+            <summary>
+            The boolean type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentType.Int">
+            <summary>
+            The integer type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentType.Double">
+            <summary>
+            The double-precision floating point type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentType.Pauli">
+            <summary>
+            The Pauli operator type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentType.Range">
+            <summary>
+            The range type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentType.Result">
+            <summary>
+            The result type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentType.String">
+            <summary>
+            The string type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentType.Array">
+            <summary>
+            The array type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentType.Array.Item">
+            <summary>
+            The type of the array items.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.ArgumentType.Array.#ctor(Microsoft.Quantum.Runtime.ArgumentType)">
+            <summary>
+            Creates a new array type.
+            </summary>
+            <param name="item">The type of the array items.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentValue">
+            <summary>
+            The value of an argument to a QIR callable is a discriminated union of the argument types.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentValue.Type">
+            <summary>
+            The type of the argument.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentValue.Bool">
+            <summary>
+            A boolean argument value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentValue.Bool.Value">
+            <summary>
+            The value of the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.ArgumentValue.Bool.#ctor(System.Boolean)">
+            <summary>
+            Creates a boolean argument value.
+            </summary>
+            <param name="value">The value of the argument.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentValue.Int">
+            <summary>
+            An integer argument value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentValue.Int.Value">
+            <summary>
+            The value of the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.ArgumentValue.Int.#ctor(System.Int64)">
+            <summary>
+            Creates an integer argument value.
+            </summary>
+            <param name="value">The value of the argument.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentValue.Double">
+            <summary>
+            A double-precision floating point argument value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentValue.Double.Value">
+            <summary>
+            The value of the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.ArgumentValue.Double.#ctor(System.Double)">
+            <summary>
+            Creates a double-precision floating point argument value.
+            </summary>
+            <param name="value">The value of the argument.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentValue.Pauli">
+            <summary>
+            A Pauli operator argument value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentValue.Pauli.Value">
+            <summary>
+            The value of the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.ArgumentValue.Pauli.#ctor(Microsoft.Quantum.Simulation.Core.Pauli)">
+            <summary>
+            Creates a Pauli operator argument value.
+            </summary>
+            <param name="value">The value of the argument.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentValue.Range">
+            <summary>
+            A range argument value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentValue.Range.Value">
+            <summary>
+            The value of the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.ArgumentValue.Range.#ctor(Microsoft.Quantum.Simulation.Core.QRange)">
+            <summary>
+            Creates a range argument value.
+            </summary>
+            <param name="value">The value of the argument.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentValue.Result">
+            <summary>
+            A result argument value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentValue.Result.Value">
+            <summary>
+            The value of the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.ArgumentValue.Result.#ctor(Microsoft.Quantum.Simulation.Core.Result)">
+            <summary>
+            Creates a result argument value.
+            </summary>
+            <param name="value">The value of the argument.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentValue.String">
+            <summary>
+            A string argument value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentValue.String.Value">
+            <summary>
+            The value of the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.ArgumentValue.String.#ctor(System.String)">
+            <summary>
+            Creates a string argument value.
+            </summary>
+            <param name="value">The value of the argument.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.ArgumentValue.Array">
+            <summary>
+            An array argument value where all values are of the same type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.ArgumentValue.Array.Values">
+            <summary>
+            The values of the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.ArgumentValue.Array.TryCreate(System.Collections.Immutable.ImmutableArray{Microsoft.Quantum.Runtime.ArgumentValue},Microsoft.Quantum.Runtime.ArgumentType)">
+            <summary>
+            Tries to create an array argument value.
+            </summary>
+            <param name="values">The values of the argument.</param>
+            <param name="itemType">The type of the values.</param>
+            <returns>The array or <c>null</c> if not all values have the type <paramref name="itemType"/>.</returns>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.Submitters.IQirSubmitter">
+            <summary>
+            An interface for submitting QIR programs to Azure.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.Submitters.IQirSubmitter.Target">
+            <summary>
+            The name of the execution target.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.Submitters.IQirSubmitter.SubmitAsync(System.IO.Stream,System.String,System.Collections.Generic.IReadOnlyList{Microsoft.Quantum.Runtime.Argument},Microsoft.Quantum.Runtime.Submitters.SubmissionOptions)">
+            <summary>
+            Submits a job to execute a QIR program without waiting for execution to complete.
+            </summary>
+            <param name="qir">The QIR program as a byte stream.</param>
+            <param name="entryPoint">The fully-qualified name of the entry point to execute.</param>
+            <param name="arguments">The arguments to the entry point in the order in which they are declared.</param>
+            <param name="options">Additional options for the submission.</param>
+            <returns>The submitted job.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.Submitters.IQirSubmitter.Validate(System.IO.Stream,System.String,System.Collections.Generic.IReadOnlyList{Microsoft.Quantum.Runtime.Argument})">
+            <summary>
+            Validates a QIR program for execution on Azure Quantum.
+            </summary>
+            <param name="qir">The QIR program as a byte stream.</param>
+            <param name="entryPoint">The fully-qualified name of the entry point to execute.</param>
+            <param name="arguments">The arguments to the entry point in the order in which they are declared.</param>
+            <returns><c>null</c> if the program is valid, or an error message otherwise.</returns>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.Submitters.IQSharpSubmitter">
+            <summary>
+            An interface for submitting Q# programs to Azure.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.Submitters.IQSharpSubmitter.Target">
+            <summary>
+            The name of the execution target.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.Submitters.IQSharpSubmitter.SubmitAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0,Microsoft.Quantum.Runtime.Submitters.SubmissionOptions)">
+            <summary>
+            Submits a job to execute a Q# program without waiting for execution to complete.
+            </summary>
+            <typeparam name="TIn">The entry point argument type.</typeparam>
+            <typeparam name="TOut">The entry point return type.</typeparam>
+            <param name="entryPoint">The entry point information for the submitted program.</param>
+            <param name="argument">The argument to the entry point.</param>
+            <param name="options">Additional options for the submission.</param>
+            <returns>The submitted job.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.Submitters.IQSharpSubmitter.Validate``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0)">
+            <summary>
+            Validates a Q# program for execution on Azure Quantum.
+            </summary>
+            <typeparam name="TIn">The entry point argument type.</typeparam>
+            <typeparam name="TOut">The entry point return type.</typeparam>
+            <param name="entryPoint">The entry point information for the submitted program.</param>
+            <param name="argument">The argument to the entry point.</param>
+            <returns><c>null</c> if the program is valid, or an error message otherwise.</returns>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.Submitters.SubmissionOptions">
+            <summary>
+            Options for a job submitted to Azure Quantum.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.Submitters.SubmissionOptions.FriendlyName">
+            <summary>
+            A name describing the job.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.Submitters.SubmissionOptions.Shots">
+            <summary>
+            The number of times the program will be executed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.Submitters.SubmissionOptions.InputParams">
+            <summary>
+            Additional target-specific parameters for the job.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.Submitters.SubmissionOptions.TargetCapability">
+            <summary>
+            The target capability.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.Submitters.SubmissionOptions.Default">
+            <summary>
+            The default submission options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.Submitters.SubmissionOptions.With(System.String,System.Nullable{System.Int32},System.Collections.Immutable.ImmutableDictionary{System.String,System.String},System.String)">
+            <summary>
+            Updates the submission options with the provided values.
+            </summary>
+            <param name="friendlyName">The new friendly name, or <c>null</c> to leave unchanged.</param>
+            <param name="shots">The new number of shots, or <c>null</c> to leave unchanged.</param>
+            <param name="inputParams">The new input parameters, or <c>null</c> to leave unchanged.</param>
+            <param name="targetCapability">The target capability, or <c>null</c> to leave unchanged.</param>
+            <returns>The updated submission options.</returns>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.IQuantumMachine">
+            <summary>
+            An interface for submitting Q# programs to Azure.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachine.Target">
+            <summary>
+            The name of the execution target.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.IQuantumMachine.ConfigureJob">
+            <summary>
+            Function that configures a job object before submission.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.ExecuteAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0)">
+            <summary>
+            Executes a Q# program.
+            Submits a job to execute it and continuously checks whether it has been completed.
+            Once its execution completes, returns an object that implements the IQuantumMachineOutput interface through which the execution output can be obtained.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>An object that implements the IQuantumMachineOutput interface.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.ExecuteAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0,Microsoft.Quantum.Runtime.IQuantumMachineSubmissionContext)">
+            <summary>
+            Executes a Q# program.
+            Submits a job to execute it and continuously checks whether it has been completed.
+            Once its execution completes, returns an object that implements the IQuantumMachineOutput interface through which the execution output can be obtained.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <param name="submissionContext">Provides configuration details to submit a job.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>An object that implements the IQuantumMachineOutput interface.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.ExecuteAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0,Microsoft.Quantum.Runtime.IQuantumMachineSubmissionContext,Microsoft.Quantum.Runtime.IQuantumMachine.ConfigureJob)">
+            <summary>
+            Executes a Q# program.
+            Submits a job to execute it and continuously checks whether it has been completed.
+            Once its execution completes, returns an object that implements the IQuantumMachineOutput interface through which the execution output can be obtained.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <param name="submissionContext">Provides configuration details to submit a job.</param>
+            <param name="configureJobCallback">Function that configures a job object before submission.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>An object that implements the IQuantumMachineOutput interface.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.ExecuteAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0,Microsoft.Quantum.Runtime.IQuantumMachineExecutionContext)">
+            <summary>
+            Executes a Q# program.
+            Submits a job to execute it and continuously checks whether it has been completed.
+            Once its execution completes, returns an object that implements the IQuantumMachineOutput interface through which the execution output can be obtained.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <param name="executionContext">Provides configuration details to manage execution.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>An object that implements the IQuantumMachineOutput interface.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.ExecuteAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0,Microsoft.Quantum.Runtime.IQuantumMachineExecutionContext,Microsoft.Quantum.Runtime.IQuantumMachine.ConfigureJob)">
+            <summary>
+            Executes a Q# program.
+            Submits a job to execute it and continuously checks whether it has been completed.
+            Once its execution completes, returns an object that implements the IQuantumMachineOutput interface through which the execution output can be obtained.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <param name="executionContext">Provides configuration details to manage execution.</param>
+            <param name="configureJobCallback">Function that configures a job object before submission.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>An object that implements the IQuantumMachineOutput interface.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.ExecuteAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0,Microsoft.Quantum.Runtime.IQuantumMachineSubmissionContext,Microsoft.Quantum.Runtime.IQuantumMachineExecutionContext)">
+            <summary>
+            Executes a Q# program.
+            Submits a job to execute it and continuously checks whether it has been completed.
+            Once its execution completes, returns an object that implements the IQuantumMachineOutput interface through which the execution output can be obtained.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <param name="submissionContext">Provides configuration details to submit a job.</param>
+            <param name="executionContext">Provides configuration details to manage execution.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>An object that implements the IQuantumMachineOutput interface.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.ExecuteAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0,Microsoft.Quantum.Runtime.IQuantumMachineSubmissionContext,Microsoft.Quantum.Runtime.IQuantumMachineExecutionContext,Microsoft.Quantum.Runtime.IQuantumMachine.ConfigureJob)">
+            <summary>
+            Executes a Q# program.
+            Submits a job to execute it and continuously checks whether it has been completed.
+            Once its execution completes, returns an object that implements the IQuantumMachineOutput interface through which the execution output can be obtained.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <param name="submissionContext">Provides configuration details to submit a job.</param>
+            <param name="executionContext">Provides configuration details to manage execution.</param>
+            <param name="configureJobCallback">Function that configures a job object before submission.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>An object that implements the IQuantumMachineOutput interface.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.SubmitAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0)">
+            <summary>
+            Submits a job to execute a Q# program.
+            Does not wait for execution to be completed.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>An object that implements the IQuantumMachineJob interface through which data about the job can be obtained.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.SubmitAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0,Microsoft.Quantum.Runtime.IQuantumMachineSubmissionContext)">
+            <summary>
+            Submits a job to execute a Q# program.
+            Does not wait for execution to be completed.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <param name="submissionContext">Provides configuration details to submit a job.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>An object that implements the IQuantumMachineJob interface through which data about the job can be obtained.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.SubmitAsync``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0,Microsoft.Quantum.Runtime.IQuantumMachineSubmissionContext,Microsoft.Quantum.Runtime.IQuantumMachine.ConfigureJob)">
+            <summary>
+            Submits a job to execute a Q# program.
+            Does not wait for execution to be completed.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <param name="submissionContext">Provides configuration details to submit a job.</param>
+            <param name="configureJobCallback">Function that configures a job object before submission.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>An object that implements the IQuantumMachineJob interface through which data about the job can be obtained.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachine.Validate``2(Microsoft.Quantum.Simulation.Core.EntryPointInfo{``0,``1},``0)">
+            <summary>
+            Validates whether a Q# program can be executed in the quantum machine.
+            </summary>
+            <param name="info">Information about the Q# program.</param>
+            <param name="input">Input for the Q# program.</param>
+            <typeparam name="TInput">Type of input the quantum program receives.</typeparam>
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            <returns>A (bool, string) tuple in which the first element represents whether the Q# program can be executed in the quantum machine and the second element is a string that provides details in case the Q# program is invalid.</returns>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.IQuantumMachineExecutionContext">
+            <summary>
+            Interface to provide configuration details to manage execution.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineExecutionContext.PollingInterval">
+            <summary>
+            Represents the job refresh frequency to determine whether execution has been completed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineExecutionContext.Timeout">
+            <summary>
+            Represents how long to wait for the job to complete its execution.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.IQuantumMachineJob">
+            <summary>
+            Interface to track a job submitted to a quantum machine.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineJob.Failed">
+            <summary>
+            Gets whether job execution failed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineJob.Id">
+            <summary>
+            Gets the ID of submitted job.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineJob.InProgress">
+            <summary>
+            Gets whether job execution is in progress.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineJob.Status">
+            <summary>
+            Gets the status of the submitted job.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineJob.Succeeded">
+            <summary>
+            Gets whether the job execution completed successfully.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineJob.Uri">
+            <summary>
+            Gets an URI to access the job.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachineJob.CancelAsync(System.Threading.CancellationToken)">
+            <summary>
+            Cancels the job.
+            </summary>
+            <param name="cancellationToken">The cancellation token for the cancel operation.</param>
+        </member>
+        <member name="M:Microsoft.Quantum.Runtime.IQuantumMachineJob.RefreshAsync(System.Threading.CancellationToken)">
+            <summary>
+            Refreshes the state of the job.
+            </summary>
+            <param name="cancellationToken">The cancellation token for the refresh operation.</param>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.IQuantumMachineOutput`1">
+            <summary>
+            Interface to access the results of a program executed in a quantum machine.
+            <typeparam name="TOutput">Type of output the quantum program returns.</typeparam>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineOutput`1.Histogram">
+            <summary>
+            Gets a histogram of outputs.
+            The key is the output and the value is its frequency.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineOutput`1.Job">
+            <summary>
+            Gets the job associated to the output.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineOutput`1.Shots">
+            <summary>
+            Gets the number of times the program was executed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.Runtime.IQuantumMachineSubmissionContext">
+            <summary>
+            Interface to provide configuration details to submit a job.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineSubmissionContext.FriendlyName">
+            <summary>
+            Represents the friendly name assigned to the job.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineSubmissionContext.Shots">
+            <summary>
+            Represents the number of times the program will be executed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.Runtime.IQuantumMachineSubmissionContext.InputParams">
+            <summary>
+            Additional target-specific parameters for the job.
+            </summary>
+        </member>
+    </members>
+</doc>

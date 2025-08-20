@@ -1,0 +1,1423 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Quantum.IQSharp.Jupyter</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Quantum.IQSharp.ChannelWriter">
+            <summary>
+            A simpler wrapper to be able to use ChannelWriter as a TextWriter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ChannelWriter.#ctor(Microsoft.Jupyter.Core.IChannel)">
+            <summary>
+            The default constructor.
+            </summary>
+            <param name="channel">The channel to write output to.</param>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ChannelWriter.Encoding">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ChannelWriter.Write(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.CompilationErrorStyle">
+            <summary>
+                Configuration values for controlling how compilation errors are
+                reported to clients.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.CompilationErrorStyle.Basic">
+            <summary>
+                 Specifies that diagnostics should be formatted as basic strings,
+                 similar to MSBuild output logs.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.CompilationErrorStyle.Fancy">
+            <summary>
+                 Specifies that diagnostics should be formatted with annotated
+                 source and additional links to documentation where appropriate.
+            </summary>
+            <seealso cref="T:Microsoft.Quantum.IQSharp.Jupyter.FancyError" />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.ConfigurationSource">
+            <summary>
+                An implementation of the
+                <see cref="T:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource" />
+                service interface that loads and persists configuration values from
+                and to a local JSON file.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.ConfigurationSource.Configuration">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.ConfigurationSource.ConfigPath">
+            <summary>
+            The path of the file use to persist configuration into disk.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.ConfigurationSource.#ctor(Microsoft.Quantum.IQSharp.IEventService,System.Boolean)">
+            <summary>
+                Constructs a new configuration source, loading initial
+                configuration options from the file <c>.iqsharp-config.json</c>,
+                if that file exists.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.ConfigurationSource.Persist">
+            <summary>
+                Persists the current configuration to
+                <c>.iqsharp-config.json</c>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource">
+            <summary>
+                A service that controls configuration options, such as those set
+                by preferences, the <c>%config</c> magic command, and so forth.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.Configuration">
+            <summary>
+                A dictionary of configuration options available from this
+                source.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.Persist">
+            <summary>
+                Persists the current configuration to disk such that a future
+                kernel session launched for the same notebook has the given
+                configuration.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault``1(System.String,``0,System.Func{System.String,``0})">
+            <summary>
+                Given the name for a configuration and a default value,
+                returns the given option if it exists, the value of an environment variable
+                if an environment variable with the same name or with the name prefixed with 
+                IQSHARP_ exists, or the default if the
+                the option is missing or not available in the environment.
+            </summary>
+            <param name="optionName">
+                Name of the option to be retrieved.
+            </param>
+            <param name="defaultValue">
+                Value to be returned when the option specified by
+                <paramref name="optionName" /> has not been set.
+            </param>
+            <param name="parser">
+                A parser to parse the string representation of the option
+                (from the environment) into the corresponding expected Type.
+            </param>
+            <typeparam name="T">
+                The expected type of the given option.
+            </typeparam>
+            <returns>
+                The value of the option specified by
+                <paramref name="optionName" /> if it exists, otherwise
+                the value of <paramref name="defaultValue" />.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault(System.String,System.Boolean)">
+            <summary>
+            Convenience method to call <see cref="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault``1(System.String,``0,System.Func{System.String,``0})"/> for boolean options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault(System.String,System.Int32)">
+            <summary>
+            Convenience method to call <see cref="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault``1(System.String,``0,System.Func{System.String,``0})"/> for int options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault(System.String,System.UInt32)">
+            <summary>
+            Convenience method to call <see cref="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault``1(System.String,``0,System.Func{System.String,``0})"/> for uint options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault(System.String,System.Double)">
+            <summary>
+            Convenience method to call <see cref="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault``1(System.String,``0,System.Func{System.String,``0})"/> for double options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault(System.String,System.String)">
+            <summary>
+            Convenience method to call <see cref="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault``1(System.String,``0,System.Func{System.String,``0})"/> for string options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault``1(System.String,``0)">
+            <summary>
+            Convenience method to call <see cref="M:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.GetOptionOrDefault``1(System.String,``0,System.Func{System.String,``0})"/> for enum options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.BasisStateLabelingConvention">
+            <summary>
+                The labeling convention to be used when labeling computational
+                basis states (bit string, little-endian or big-endian).
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.TruncateSmallAmplitudes">
+            <summary>
+                Whether small amplitudes should be truncated when dumping
+                states.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.TruncationThreshold">
+            <summary>
+                The threshold for truncating measurement probabilities when
+                dumping states. Computational basis states whose measurement
+                probabilities (i.e: squared magnitudes) are below this threshold
+                are subject to truncation when
+                <see cref="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.TruncateSmallAmplitudes" />
+                is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.PhaseDisplayStyle">
+            <summary>
+                Allows for options to view phase as arrows, or in radians
+                or both in arrow format and radians. This also allows the
+                option to show None. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.MeasurementDisplayStyle">
+            <summary>
+                Allows for options to view measurement as horizontal histograms for each
+                basis state, as well as the option to toggle measurement probability as
+                a decimal, progress bar, both, or None. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.MeasurementDisplayPrecision">
+            <summary>
+                Allows for options to change measurement probability precision when viewing
+                measurement <span class="x x-first x-last">probabilities</span> in a decimal format. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.MeasurementDisplayHistogram">
+            <summary>
+                Allows for option to view basis states as a function of
+                measurement probability in a vertical histogram format. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.PlainTextOnly">
+            <summary>
+                Whether to use only a simple plain-text encoding when dumping states.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.TraceVisualizationDefaultDepth">
+            <summary>
+                Allows for setting the default depth for visualizing Q# operations using the
+                <c>%trace</c> command.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.TraceVisualizationStyle">
+            <summary>
+                Allows for setting the default visualization style for visualizing Q# operations
+                using the <c>%trace</c> command.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.NoisySimulatorCapacity">
+            <summary>
+                Specifies the number of qubits that the open systems simulator
+                supports for use in running Q# programs.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.NoisySimulatorRepresentation">
+            <summary>
+                Specifies the representation to use for the initial state
+                when simulating Q# programs with open systems simulator.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.NoisySimulatorStabilizerStateVisualizationStyle">
+            <summary>
+                Specifies the format used in dumping stabilizer states.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.ShowHintsOnErrors">
+            <summary>
+                 Specifies whether hints are shown for kernel error messages.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.CompilationErrorStyle">
+            <summary>
+                 Specifies the format used for reporting Q# compilation errors.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.NContextLines">
+            <summary>
+                 Specifies how many lines of context should be displayed around
+                 errors and other Q# compilation diagnostics.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.SubscriptionId">
+            <summary>
+                Default SubscriptionId to use when connecting to Azure Quantum. Returns an empty string if not configured.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.WorkspaceRG">
+            <summary>
+                Default Workspace's Resource Group to use when connecting to Azure Quantum. Returns an empty string if not configured.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.WorkspaceLocation">
+            <summary>
+                Default Workspace's location to use when connecting to Azure Quantum. Returns an empty string if not configured.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.WorkspaceName">
+            <summary>
+                Default Workspace's name to use when connecting to Azure Quantum. Returns an empty string if not configured.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.EstimatorShowSummary">
+            <summary>
+                Whether the resource estimation table should be shown in summary mode or not.
+                In summary mode the explanations are shown as a tooltip, otherwise, they are inlined
+                into the table cells.  The default value is `false`.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.InternalShowPerf">
+            <summary>
+                 If set to <c>true</c>, shows additional performance breakdowns
+                 from within the notebook.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource.InternalShowCompilerPerf">
+            <summary>
+                 If set to <c>true</c>, shows additional performance breakdowns
+                 forwarded from the Q# compiler.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.Extensions">
+            <summary>
+                 Extension methods to be used with various IQ# and Jupyter objects.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.Extensions.ApplyConfiguration``1(Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,System.String,System.Action{``0})">
+            <summary>
+                Given a configuration source, applies an action if that
+                configuration source defines a value for a particular
+                configuration key.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.Extensions.ToHumanReadableBytes(System.Int64)">
+            <summary>
+                 Given a number of bytes, formats that number as a human
+                 readable string by appending unit suffixes (i.e.: indicating
+                 kilobytes, megabytes, etc.).
+            </summary>
+            <param name="nBytes">A number of bytes to be formatted.</param>
+            <returns>
+                The number of bytes formatted as a human-readable string.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.Extensions.SignificantAmplitudes(Microsoft.Quantum.Simulation.Simulators.CommonNativeSimulator.DisplayableState,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource)">
+            <summary>
+                An enumerable source of the significant amplitudes of this state
+                vector and their labels, where significance and labels are
+                defined by the values loaded from <paramref name="configurationSource" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.Extensions.WithStackTraceDisplay``1(``0,Microsoft.Jupyter.Core.IChannel)">
+            <summary>
+                Adds functionality to a given quantum simulator to display
+                diagnostic output and stack traces for exceptions.
+            </summary>
+            <param name="simulator">
+                The simulator to be augmented with stack trace display functionality.
+            </param>
+            <param name="channel">
+                The Jupyter display channel to be used to display stack traces.
+            </param>
+            <returns>
+                The value of <paramref name="simulator" />.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.Extensions.TryDecodeParameter``1(System.Collections.Generic.Dictionary{System.String,System.String},System.String,``0@,``0)">
+            <summary>
+                 Retrieves and JSON-decodes the value for the given parameter name.
+            </summary>
+            <typeparam name="T">
+                 The expected type of the decoded parameter.
+            </typeparam>
+            <param name="parameters">
+                Dictionary from parameter names to JSON-encoded values.
+            </param>
+            <param name="parameterName">
+                The name of the parameter to be decoded.
+            </param>
+            <param name="decoded">
+                The returned value of the parameter once it has been decoded.
+            </param>
+            <param name="defaultValue">
+                 The default value to be returned if no parameter with the
+                 name <paramref name="parameterName"/> is present in the
+                 dictionary.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.Extensions.DecodeParameter``1(System.Collections.Generic.Dictionary{System.String,System.String},System.String,``0)">
+            <summary>
+                 Retrieves and JSON-decodes the value for the given parameter name.
+            </summary>
+            <typeparam name="T">
+                 The expected type of the decoded parameter.
+            </typeparam>
+            <param name="parameters">
+                Dictionary from parameter names to JSON-encoded values.
+            </param>
+            <param name="parameterName">
+                The name of the parameter to be decoded.
+            </param>
+            <param name="defaultValue">
+                 The default value to be returned if no parameter with the
+                 name <paramref name="parameterName"/> is present in the
+                 dictionary.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.Extensions.DecodeParameter(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Type,System.Object)">
+            <summary>
+                 Retrieves and JSON-decodes the value for the given parameter name.
+            </summary>
+            <param name="parameters">
+                Dictionary from parameter names to JSON-encoded values.
+            </param>
+            <param name="parameterName">
+                The name of the parameter to be decoded.
+            </param>
+            <param name="type">
+                 The expected type of the decoded parameter.
+            </param>
+            <param name="defaultValue">
+                 The default value to be returned if no parameter with the
+                 name <paramref name="parameterName"/> is present in the
+                 dictionary.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.Extensions.CaptureConsole(Microsoft.Jupyter.Core.IChannel)">
+            <summary>
+            Makes the channel to start capturing the Console Output.
+            Returns the current TextWriter in the Console so callers can set it back.
+            </summary>
+            <param name="channel">The channel to redirect console output to.</param>
+            <returns>The current System.Console.Out</returns>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.AbstractMagic">
+            <summary>
+                Abstract base class for IQ# magic symbols.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.AbstractMagic.#ctor(System.String,Microsoft.Jupyter.Core.Documentation,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+                Constructs a new magic symbol given its name and documentation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.AbstractMagic.SafeExecute(System.Func{System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken,Microsoft.Jupyter.Core.ExecutionResult})">
+            <summary>
+                Given a function representing the execution of a magic command,
+                returns a new function that executes <paramref name="magic" />
+                and catches any exceptions that occur during execution. The
+                returned execution function displays the given exceptions to its
+                display channel.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.AbstractMagic.JsonToDict(System.String)">
+            <summary>
+                Parses the input to a magic command, interpreting the input as
+                a name followed by a JSON-serialized dictionary.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.AbstractMagic.ParseInputParameters(System.String,System.String)">
+            <summary>
+                Parses the input parameters for a given magic symbol and returns a
+                <c>Dictionary</c> with the names and values of the parameters,
+                where the values of the <c>Dictionary</c> are JSON-serialized objects.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.AbstractMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <summary>
+                A method to be run when the magic command is executed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.AbstractMagic.RunCancellable(System.String,Microsoft.Jupyter.Core.IChannel,System.Threading.CancellationToken)">
+            <summary>
+                A method to be run when the magic command is executed, including a cancellation
+                token to use for requesting cancellation.
+            </summary>
+            <remarks>
+                The default implementation in <see cref="T:Microsoft.Quantum.IQSharp.Jupyter.AbstractMagic"/> ignores the cancellation token.
+                Derived classes should override this method and monitor the cancellation token if they
+                wish to support cancellation.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.AbstractNativeSimulateMagic">
+            <summary>
+                Abstract class for magic commands that can be used to simulate
+                operations and functions on a full-state quantum simulator, using
+                a common C API.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.AbstractNativeSimulateMagic.#ctor(System.String,Microsoft.Jupyter.Core.Documentation,Microsoft.Jupyter.Core.ISymbolResolver,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,Microsoft.Quantum.IQSharp.IPerformanceMonitor,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.AbstractNativeSimulateMagic})">
+            <summary>
+                Constructs a new magic command given a resolver used to find
+                operations and functions, and a configuration source used to set
+                configuration options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.AbstractNativeSimulateMagic.SymbolResolver">
+            <summary>
+                 The symbol resolver used by this magic command to find
+                 operations or functions to be simulated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.AbstractNativeSimulateMagic.ConfigurationSource">
+            <summary>
+                The configuration source used by this magic command to control
+                simulation options (e.g.: dump formatting options).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.AbstractNativeSimulateMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.AbstractNativeSimulateMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <summary>
+                Simulates an operation given a string with its name and a JSON
+                encoding of its arguments.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.ConfigMagic">
+            <summary>
+                A magic command that sets or queries configuration options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.ConfigMagic.#ctor(Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.ConfigMagic})">
+            <summary>
+                Constructs a magic command that sets or queries configuration
+                options using a given configuration source.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.ConfigMagic.ConfigurationSource">
+            <summary>
+                The configuration source which this magic command queries or
+                sets configuration options in.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.ConfigMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolSummary">
+            <summary>
+                 Represents information about a single magic symbol returned
+                 by the <c>%lsmagic</c> magic command.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.LsMagicMagic">
+            <summary>
+                A magic command that lists what magic commands are currently
+                available.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.LsMagicMagic.#ctor(Microsoft.Quantum.IQSharp.Jupyter.IMagicSymbolResolver,Microsoft.Jupyter.Core.IExecutionEngine,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.LsMagicMagic})">
+            <summary>
+                Given a given snippets collection, constructs a new magic command
+                that queries callables defined in that snippets collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.LsMagicMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.LsOpenMagic">
+            <summary>
+                A magic command that lists any open namespaces and their aliases.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.LsOpenMagic.#ctor(Microsoft.Quantum.IQSharp.ICompilerService,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.LsOpenMagic})">
+            <summary>
+                Constructs an instance of %lsopen given an instance of the
+                compiler service.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.LsOpenMagic.Compiler">
+            <summary>
+                The compiler service used to identify open namespaces.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.LsOpenMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.NoiseModelMagic">
+            <summary>
+                 Magic command for querying, setting, and loading noise models.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.NoiseModelMagic.#ctor(Microsoft.Jupyter.Core.IExecutionEngine,Microsoft.Quantum.IQSharp.Jupyter.INoiseModelSource,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.NoiseModelMagic})">
+            <summary>
+                Allows for querying noise models and for loading new noise models.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.NoiseModelMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.PackageMagic">
+            <summary>
+                A magic command that can be used to add new NuGet packages to the
+                current IQ# session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.PackageMagic.#ctor(Microsoft.Quantum.IQSharp.IReferences,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.PackageMagic})">
+            <summary>
+                Constructs a new magic command that adds package references to
+                a given references collection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.PackageMagic.References">
+            <summary>
+                The references collection that this magic command adds package
+                references to.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.PackageMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.PackageMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel,System.Action{System.String})">
+            <summary>
+                Adds a package given a string representing its name and returns
+                a task that can be awaited on for the completion of the package
+                download.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.PerformanceMagic">
+            <summary>
+                A magic command that reports various performance metrics to the
+                user.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.PerformanceMagic.#ctor(Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.PerformanceMagic})">
+            <summary>
+                Constructs a new performance command.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.PerformanceMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.ProjectMagic">
+            <summary>
+                A magic command that can be used to add Q# project references to
+                the current IQ# session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.ProjectMagic.#ctor(Microsoft.Quantum.IQSharp.IWorkspace,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.ProjectMagic})">
+            <summary>
+                Constructs a new magic command that adds Q# project references to
+                the current IQ# session.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.ProjectMagic.Workspace">
+            <summary>
+                The workspace to which project references will be added.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.ProjectMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.IMagicSymbolResolver">
+            <summary>
+                Subinterface of <see cref="T:Microsoft.Jupyter.Core.ISymbolResolver" />
+                with additional functionality for discovering magic symbols.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IMagicSymbolResolver.Resolve(System.String)">
+            <summary>
+            Returns the <see cref="T:Microsoft.Jupyter.Core.MagicSymbol"/> corresponding to the given symbol name,
+            searching all loaded assemblies for classes derived from <see cref="T:Microsoft.Jupyter.Core.MagicSymbol"/>.
+            </summary>
+            <param name="symbolName">The magic symbol name to resolve.</param>
+            <returns>The resolved <see cref="T:Microsoft.Jupyter.Core.MagicSymbol"/> object, or <c>null</c> if none was found.</returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IMagicSymbolResolver.AddKernelAssembly``1">
+            <summary>
+                Given a type representing an assembly, adds that assembly to the
+                list of assemblies to be searched for built-in magic commands.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IMagicSymbolResolver.FindAllMagicSymbols">
+            <summary>
+            Returns the list of all <see cref="T:Microsoft.Jupyter.Core.MagicSymbol"/> objects defined in loaded assemblies.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IMagicSymbolResolver.FindMagic(Microsoft.Quantum.IQSharp.AssemblyInfo)">
+            <summary>
+            Finds the MagicSymbols inside an assembly, and returns an instance of each.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolResolver">
+            <summary>
+                A specialized resolver for MagicSymbols. 
+                It finds all types that inherit MagicSymbol on the current Assembly
+                and all the Assemblies in global references (including those
+                added via nuget Packages).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolResolver.MundaneAssemblies">
+            <summary>
+                The simple names of those assemblies which do not need to be
+                searched for display encoders or magic commands.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolResolver.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolResolver},Microsoft.Quantum.IQSharp.IEventService)">
+            <summary>
+                Constructs a new magic symbol resolver using the provided
+                services to search assembly references for subclasses of
+                <see cref="T:Microsoft.Jupyter.Core.MagicSymbol" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolResolver.RelevantAssemblies">
+            <summary>
+                Enumerates over all assemblies that should be searched
+                when resolving symbols.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolResolver.Resolve(System.String)">
+            <summary>
+                Resolves a given symbol name into a Q# symbol
+                by searching through all relevant assemblies.
+            </summary>
+            <returns>
+                The symbol instance if resolution is successful, otherwise <c>null</c>.
+            </returns>
+            <remarks>
+                If the symbol to be resolved contains a dot,
+                it is treated as a fully qualified name, and will
+                only be resolved to a symbol whose name matches exactly.
+                Symbol names without a dot are resolved to the first symbol
+                whose base name matches the given name.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolResolver.FindMagic(Microsoft.Quantum.IQSharp.AssemblyInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolResolver.FindAllMagicSymbols">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolResolver.AddKernelAssembly``1">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.SimulateMagic">
+            <summary>
+                A magic command that can be used to simulate operations and functions
+                on a full-state quantum simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.SimulateMagic.#ctor(Microsoft.Jupyter.Core.ISymbolResolver,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,Microsoft.Quantum.IQSharp.IPerformanceMonitor,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.SimulateMagic})">
+            <summary>
+                Constructs a new magic command given a resolver used to find
+                operations and functions, and a configuration source used to set
+                configuration options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.SimulateNoiseMagic.#ctor(Microsoft.Jupyter.Core.IExecutionEngine,Microsoft.Jupyter.Core.ISymbolResolver,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,Microsoft.Quantum.IQSharp.Jupyter.INoiseModelSource,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.SimulateNoiseMagic})">
+            <summary>
+                Constructs a new magic command given a resolver used to find
+                operations and functions, and a configuration source used to set
+                configuration options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.SimulateNoiseMagic.SymbolResolver">
+            <summary>
+                 The symbol resolver used by this magic command to find
+                 operations or functions to be simulated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.SimulateNoiseMagic.ConfigurationSource">
+            <summary>
+                The configuration source used by this magic command to control
+                simulation options (e.g.: dump formatting options).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.SimulateNoiseMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.SimulateNoiseMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <summary>
+                Simulates an operation given a string with its name and a JSON
+                encoding of its arguments.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.SimulateSparseMagic">
+            <summary>
+                A magic command that can be used to simulate operations and functions
+                on a sparse simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.SimulateSparseMagic.#ctor(Microsoft.Jupyter.Core.ISymbolResolver,Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource,Microsoft.Quantum.IQSharp.IPerformanceMonitor,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.SimulateSparseMagic})">
+            <summary>
+                Constructs a new magic command given a resolver used to find
+                operations and functions, and a configuration source used to set
+                configuration options.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.ToffoliMagic">
+            <summary>
+            Runs a given function or operation on the ToffoliSimulator target machine.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.ToffoliMagic.#ctor(Microsoft.Jupyter.Core.ISymbolResolver,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.ToffoliMagic})">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.ToffoliMagic.SymbolResolver">
+            <summary>
+            ISumbolResolver used to find the function/operation to simulate.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.ToffoliMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.ToffoliMagic.RunAsync(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <summary>
+            Simulates a function/operation using the ToffoliSimulator as target machine.
+            It expects a single input: the name of the function/operation to simulate.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.WhoMagic">
+            <summary>
+                A magic command that can be used to query the functions and operations
+                defined within an IQ# session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.WhoMagic.#ctor(Microsoft.Quantum.IQSharp.ISnippets,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.WhoMagic})">
+            <summary>
+                Given a given snippets collection, constructs a new magic command
+                that queries callables defined in that snippets collection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.WhoMagic.Snippets">
+            <summary>
+                The snippets collection queried by this magic command.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.WhoMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.WorkspaceMagic">
+            <summary>
+                A magic symbol that provides access to a given workspace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.WorkspaceMagic.#ctor(Microsoft.Quantum.IQSharp.IWorkspace,Microsoft.Extensions.Logging.ILogger{Microsoft.Quantum.IQSharp.Jupyter.WorkspaceMagic})">
+            <summary>
+                 Given a workspace, constructs a new magic symbol to control
+                 that workspace.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.WorkspaceMagic.Workspace">
+            <summary>
+                The workspace controlled by this magic symbol.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.WorkspaceMagic.CheckIfReady">
+            <summary>
+            Performs checks to verify if the Workspace is available and in a success (no errors) state.
+            The method throws Exceptions if it finds it is not ready to execute.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.WorkspaceMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.INoiseModelSource">
+            <summary>
+                A dependency injection service that stores a noise model for use in
+                open systems simulation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.INoiseModelSource.NoiseModel">
+            <summary>
+                 The current noise model in effect for open systems simulation.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.NoiseModelSource">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.NoiseModelSource.NoiseModel">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.IQSharpSymbol">
+            <summary>
+                Represents a Q# code symbol (e.g. a function or operation name)
+                that can be used for documentation requests (`?`) or as a completion
+                suggestion.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IQSharpSymbol.Operation">
+            <summary>
+                The information provided by the compiler about the operation
+                represented by this symbol.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IQSharpSymbol.Name">
+            <summary>
+                The name of the operation represented by this symbol.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IQSharpSymbol.Kind">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IQSharpSymbol.Source">
+            <summary>
+                The source file in which the operation represented by this
+                symbol was defined.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IQSharpSymbol.Documentation">
+            <summary>
+                The documentation for this symbol, as provided by its API
+                documentation comments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IQSharpSymbol.Summary">
+            <summary>
+                 A short summary of the given symbol, as provided by its API
+                 documentation comments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IQSharpSymbol.Description">
+            <summary>
+                 An extended description of the given symbol, as provided by its API
+                 documentation comments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.IQSharpSymbol.Inputs">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.IQSharpSymbol.#ctor(Microsoft.Quantum.IQSharp.OperationInfo)">
+            <summary>
+                Constructs a new symbol given information about an operation
+                as provided by the Q# compiler.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.SymbolResolver">
+            <summary>
+                Resolves Q# symbols into Jupyter Core symbols to be used for
+                documentation requests.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.SymbolResolver.#ctor(Microsoft.Quantum.IQSharp.IOperationResolver,Microsoft.Quantum.IQSharp.IEventService)">
+            <summary>
+                Constructs a new resolver that looks for symbols in a given
+                collection of snippets.
+            </summary>
+            <param name="opsResolver">
+                An object to be used to resolve operation names to symbols.
+            </param>
+            <param name="eventService">
+                The event service used to signal the successful start of this
+                resolver service.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.SymbolResolver.#ctor(Microsoft.Quantum.IQSharp.Snippets)">
+            <summary>
+            Creates a SymbolResolver from a Snippets implementation. Only used for testing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.SymbolResolver.Resolve(System.String)">
+            <summary>
+                Resolves a given symbol name into a Q# symbol
+                by searching through all relevant assemblies.
+            </summary>
+            <returns>
+                The symbol instance if resolution is successful, otherwise <c>null</c>.
+            </returns>
+            <remarks>
+                If the symbol to be resolved contains a dot,
+                it is treated as a fully qualified name, and will
+                only be resolved to a symbol whose name matches exactly.
+                Symbol names without a dot are resolved to the first symbol
+                whose base name matches the given name.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.DebugStatusContent">
+            <summary>
+            Contains information for rendering the status of a client debugging session.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.DebugStatusContent.DebugSession">
+            <summary>
+            Contains the identifier of the client debugging session.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.DebugSessionContent">
+            <summary>
+            Contains information for rendering the content of a client debugging session.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.DebugSessionContent.DebugSession">
+            <summary>
+            Contains the identifier of the client debugging session.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.DebugSessionContent.DivId">
+            <summary>
+            Contains the identifier of the HTML element for the client to render
+            the debugging information.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.DisplayableHtmlElement">
+            <summary>
+                Represents an HTML string to be rendered as an HTML element.
+            </summary>
+            <param name="Html">
+                HTML string to be rendered.
+            </param>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.DisplayableHtmlElement.#ctor(System.String)">
+            <summary>
+                Represents an HTML string to be rendered as an HTML element.
+            </summary>
+            <param name="Html">
+                HTML string to be rendered.
+            </param>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.DisplayableHtmlElement.Html">
+            <summary>
+                HTML string to be rendered.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.DisplayableHtmlElementEncoder">
+            <summary>
+                Encodes <see cref="T:Microsoft.Quantum.IQSharp.Jupyter.DisplayableHtmlElement" /> instances as HTML elements.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.DisplayableHtmlElementEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.DisplayableHtmlElementEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a given display object is an <see cref="T:Microsoft.Quantum.IQSharp.Jupyter.DisplayableHtmlElement"/>,
+                and if so, returns its HTML element.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.FancyError">
+            <summary>
+                Represents a diagnostic together with the source that generated that
+                diagnostic.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.FancyError.#ctor(System.String,Microsoft.VisualStudio.LanguageServer.Protocol.Diagnostic)">
+            <summary>
+                Represents a diagnostic together with the source that generated that
+                diagnostic.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.FancyError.Hint">
+            <summary>
+                Returns a user-friendly hint about this diagnostic if one exists,
+                or <c>null</c> if no hint is available.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.FancyError.TryGetDocumentationPage">
+            <summary>
+                Attempts to get a link to a documentation page for this diagnostic.
+            </summary>
+            <returns>
+                A URI that resolves to a page about this diagnostic if one exists
+                and can be found within the timeout, or <c>null</c> if no such
+                page exists, or if an exception was encountered.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.FancyError.AnnotatedSource(System.Int32,System.Boolean)">
+            <summary>
+                Returns the source for this error, annotated with information from
+                the diagnostic.
+            </summary>
+            <param name="nContextLines">
+                 The maximum number of lines of context above and below the
+                 diagnostic that should be included in the annotated source.
+            </param>
+            <param name="html">
+                If <c>true</c>, formats annotated source as an HTML block element.
+            </param>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.FancyErrorToTextEncoder">
+            <summary>
+                Encodes fancy error diagnostics into plain text suitable for display
+                at a command-line or other console.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.FancyErrorToTextEncoder.#ctor(Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource)">
+            <summary>
+                Encodes fancy error diagnostics into plain text suitable for display
+                at a command-line or other console.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.FancyErrorToTextEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.FancyErrorToTextEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.FancyErrorToHtmlEncoder">
+            <summary>
+                Encodes fancy error diagnostics into HTML suitable for inclusion in a
+                notebook or other rich-text interface.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.FancyErrorToHtmlEncoder.#ctor(Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource)">
+            <summary>
+                Encodes fancy error diagnostics into HTML suitable for inclusion in a
+                notebook or other rich-text interface.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.FancyErrorToHtmlEncoder.MimeType">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.FancyErrorToHtmlEncoder.Encode(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolSummariesToHtmlEncoder">
+            <summary>
+                Encodes results from the <c>%lsmagic</c> magic command as an HTML
+                table.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolSummariesToHtmlEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolSummariesToHtmlEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a displayable object represents a list of magic symbol
+                summaries, and if so, returns an encoding into an HTML table.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolSummariesToTextEncoder">
+            <summary>
+                Encodes <see cref="T:System.Data.DataTable" /> instances as plain-text
+                tables.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolSummariesToTextEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.MagicSymbolSummariesToTextEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a displayable object represents a list of magic symbol
+                summaries, and if so, returns an encoding into a plain-text table.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.MeasurementHistogramContent">
+            <summary>
+            Contains information for rendering a histogram on the client.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.MeasurementHistogramContent.State">
+            <summary>
+            Information about the state to be displayed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.MeasurementHistogramContent.Id">
+            <summary>
+            Unique identifier of the instance.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.StabilizerStateVisualizationStyle">
+            <summary>
+                Represents different styles for displaying the Q# execution path
+                visualization as HTML.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.StabilizerStateVisualizationStyle.MatrixWithDestabilizers">
+            <summary>
+                 Formats stabilizer states as matrices of binary symplectic
+                 representations of each generator of the stabilizer group, augmented
+                 by the associated anticommuting element for each generator
+                 (colloquially known as destabilizers).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.StabilizerStateVisualizationStyle.MatrixWithoutDestabilizers">
+            <summary>
+                 Formats stabilizer states as matrices of binary symplectic
+                 representations of each generator of the stabilizer group.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.StabilizerStateVisualizationStyle.DenseGroupPresentation">
+            <summary>
+                 Represents stabilizer states by listing the Pauli matrices that
+                 generate the stabilizer group in dense form.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.StabilizerStateVisualizationStyle.SparseGroupPresentation">
+            <summary>
+                 Represents stabilizer states by listing the Pauli matrices that
+                 generate the stabilizer group in sparse form.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.MixedStateToHtmlDisplayEncoder">
+            <summary>
+                 Encodes density operators for display in notebooks and other rich-text
+                 contexts.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.MixedStateToHtmlDisplayEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.MixedStateToHtmlDisplayEncoder.Encode(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.StabilizerStateToHtmlDisplayEncoder">
+            <summary>
+                 Encodes stabilizer states for display in notebooks and other rich-text
+                 contexts.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.StabilizerStateToHtmlDisplayEncoder.#ctor(Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource)">
+            <summary>
+                 Encodes stabilizer states for display in notebooks and other rich-text
+                 contexts.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.StabilizerStateToHtmlDisplayEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.StabilizerStateToHtmlDisplayEncoder.Encode(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.NoiseModelToHtmlDisplayEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.NoiseModelToHtmlDisplayEncoder.Encode(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.TaskProgressToHtmlEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.TaskProgressToHtmlEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a displayable object represents a list of magic symbol
+                summaries, and if so, returns an encoding into an HTML table.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.PhaseDisplayStyle">
+            <summary>
+                Represents different styles for displaying the phases of complex
+                amplitudes when displaying state vectors as HTML.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.PhaseDisplayStyle.None">
+            <summary>
+                Suppress phase information.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.PhaseDisplayStyle.ArrowOnly">
+            <summary>
+                Display phase information as an arrow (<c>↑</c>) rotated by an angle
+                dependent on the phase.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.PhaseDisplayStyle.NumberOnly">
+            <summary> 
+                Display phase information in number format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.PhaseDisplayStyle.ArrowAndNumber">
+            <summary>
+                Display phase information as an arrow (<c>↑</c>) rotated by an angle
+                dependent on the phase as well as display phase information in number
+                format.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.MeasurementDisplayStyle">
+            <summary> 
+                Represents different styles for displaying the measurement probability
+                of state vectors as HTML.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.MeasurementDisplayStyle.None">
+            <summary>
+                Suppress measurement probability information.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.MeasurementDisplayStyle.BarOnly">
+            <summary>
+                Display measurement probability information as a horizontal histogram.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.MeasurementDisplayStyle.NumberOnly">
+            <summary>
+                Display measurement probability information as a numerical percentage.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.MeasurementDisplayStyle.BarAndNumber">
+            <summary>
+                Display measurement probability information as a horizontal histogram as well
+                in a numerical percentage format.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.StateVectorToHtmlResultEncoder">
+            <summary>
+                A result encoder that displays quantum state vectors as HTML tables.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.StateVectorToHtmlResultEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.StateVectorToHtmlResultEncoder.#ctor(Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource)">
+            <summary>
+                Constructs a new result encoder using configuration settings
+                provided by a given configuration source.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.StateVectorToHtmlResultEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a given display object is a state vector, and if so,
+                returns its encoding into an HTML table.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.StateVectorToTextResultEncoder">
+            <summary>
+                A result encoder that displays quantum state vectors as plain-text
+                tables.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.StateVectorToTextResultEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.StateVectorToTextResultEncoder.#ctor(Microsoft.Quantum.IQSharp.Jupyter.IConfigurationSource)">
+            <summary>
+                Constructs a new result encoder using configuration settings
+                provided by a given configuration source.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.StateVectorToTextResultEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a given display object is a state vector, and if so,
+                returns its encoding into a plain-text table.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.TaskStatus">
+            <summary>
+                Represents the status of a task, including its description,
+                completion status, and possibly a subtask description.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.TaskStatus.LastUpdated">
+            <summary>
+                The last time at which the status was updated.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.TaskStatus.IsCompleted">
+            <summary>
+                Whether the status represents a completed task.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.TaskStatus.Description">
+            <summary>
+                A description of the task represented by this object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.TaskStatus.Subtask">
+            <summary>
+                A description of the current subtask for this task (e.g. if
+                the task represents downloading multiple files, which file is
+                currently being downloaded). If there is no applicable subtask,
+                this property should be <c>null</c>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.TaskStatus.#ctor(System.String)">
+            <summary>
+                Constructs a new status given the description of a task.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.TaskStatusToTextEncoder">
+            <summary>
+                Encodes the status of IQ# tasks into plain text.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.Jupyter.TaskStatusToTextEncoder.MimeType">
+            <summary>
+                The MIME type returned by this encoder.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.Jupyter.TaskStatusToTextEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a displayable object is a task status, and if so,
+                returns its encoding into plain text.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.Jupyter.TraceVisualizationStyle">
+            <summary>
+                Represents different styles for displaying the Q# execution path
+                visualization as HTML.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.TraceVisualizationStyle.Default">
+            <summary>
+                Default style with coloured gates.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.TraceVisualizationStyle.BlackAndWhite">
+            <summary>
+                Black and white style.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.Jupyter.TraceVisualizationStyle.Inverted">
+            <summary> 
+                Inverted black and white style (for black backgrounds).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.DataTableToHtmlEncoder">
+            <summary>
+                Encodes <see cref="T:System.Data.DataTable" /> instances as HTML
+                tables.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.DataTableToHtmlEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.DataTableToHtmlEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a displayable object represents a data table, and if
+                so, returns an encoding into an HTML table.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.DataTableToTextEncoder">
+            <summary>
+                Encodes <see cref="T:System.Data.DataTable" /> instances as plain-text
+                tables.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.DataTableToTextEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.DataTableToTextEncoder.Encode(System.Object)">
+            <summary>
+                Checks if a displayable object represents a data table, and if
+                so, returns an encoding into a plain-text table.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.DisplayableExceptionToHtmlEncoder">
+            <summary>
+                 Encodes exceptions augmented with Q# metadata into HTML tables.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.DisplayableExceptionToHtmlEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.DisplayableExceptionToHtmlEncoder.Encode(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.DisplayableExceptionToTextEncoder">
+            <summary>
+                 Encodes exceptions augmented with Q# metadata into plain text
+                 tables.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.DisplayableExceptionToTextEncoder.MimeType">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.DisplayableExceptionToTextEncoder.Encode(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.Quantum.Experimental.ExperimentalBuildInfoMagic.Run(System.String,Microsoft.Jupyter.Core.IChannel)">
+            <inheritdoc />
+        </member>
+        <member name="T:System.Runtime.CompilerServices.IsExternalInit">
+            Allows using init-only properties in netstandard2.1 project. Note that
+            init-only is only enforced for net5.0 and later callers.
+        </member>
+    </members>
+</doc>

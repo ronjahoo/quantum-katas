@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Quantum.IQSharp.ExecutionPathTracer</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPath">
+            <summary>
+            Represents the qubit resources and operations traced out in an execution path of a Q# operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPath.#ctor(System.Collections.Generic.IEnumerable{Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitDeclaration},System.Collections.Generic.IEnumerable{Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer"/> class.
+            </summary>
+            <param name="qubits">
+            A list of <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitDeclaration"/> that represents the declared qubits used in the execution path.
+            </param>
+            <param name="operations">
+            A list of <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation"/> that represents the operations used in the execution path.
+            </param>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPath.Qubits">
+            <summary>
+            A list of <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitDeclaration"/> that represents the declared qubits used in the execution path.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPath.Operations">
+            <summary>
+            A list of <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation"/> that represents the operations used in the execution path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPath.ToJson(System.Boolean)">
+            <summary>
+            Serializes <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPath"/> into its JSON representation.
+            </summary>
+            <param name="prettyPrint">
+            Pretty prints the JSON (i.e. with white space and indents) if <c>true</c>.
+            </param>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitDeclaration">
+            <summary>
+            Represents a qubit resource used in an execution path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitDeclaration.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitDeclaration"/> class.
+            </summary>
+            <param name="id">
+            Id of qubit.
+            </param>
+            <param name="numChildren">
+            Number of associated classical registers.
+            </param>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitDeclaration.Id">
+            <summary>
+            Id of qubit.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitDeclaration.NumChildren">
+            <summary>
+            Number of associated classical registers.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitDeclaration.ShouldSerializeNumChildren">
+            <summary>
+            Used by <see cref="N:Newtonsoft" /> to determine if <see cref="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitDeclaration.NumChildren" />
+            should be included in the JSON serialization.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation">
+            <summary>
+            Represents an operation used in an execution path.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation.Gate">
+            <summary>
+            Label of gate.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation.DisplayArgs">
+            <summary>
+            Arguments (except <see cref="T:Microsoft.Quantum.Simulation.Core.Qubit" /> types) provided to gate that
+            will be displayed by the visualizer.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation.Children">
+            <summary>
+            Nested operations within this operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation.IsMeasurement">
+            <summary>
+            True if operation is a measurement operations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation.IsControlled">
+            <summary>
+            True if operation is a controlled operations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation.IsAdjoint">
+            <summary>
+            True if operation is an adjoint operations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation.Controls">
+            <summary>
+            List of control registers.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation.Targets">
+            <summary>
+            List of target registers.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation.DataAttributes">
+            <summary>
+            Dictionary of data attributes to add to rendered gate element.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer">
+            <summary>
+            Traces through the operations in a given execution path of a Q# program by hooking on
+            to a simulator via the event listeners <see cref="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer.OnOperationStartHandler(Microsoft.Quantum.Simulation.Core.ICallable,Microsoft.Quantum.Simulation.Core.IApplyData)"/> and
+            <see cref="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer.OnOperationEndHandler(Microsoft.Quantum.Simulation.Core.ICallable,Microsoft.Quantum.Simulation.Core.IApplyData)"/>, and generates the corresponding <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPath"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer.operations">
+            <summary>
+            Current stack of processed <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation"/>s.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer.GetExecutionPath">
+            <summary>
+            Returns the generated <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPath"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer.OnOperationStartHandler(Microsoft.Quantum.Simulation.Core.ICallable,Microsoft.Quantum.Simulation.Core.IApplyData)">
+            <summary>
+            Provides the event listener to listen to
+            <see cref="T:Microsoft.Quantum.Simulation.Common.SimulatorBase"/>'s
+            <c>OnOperationStart</c> event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer.OnOperationEndHandler(Microsoft.Quantum.Simulation.Core.ICallable,Microsoft.Quantum.Simulation.Core.IApplyData)">
+            <summary>
+            Provides the event listener to listen to
+            <see cref="T:Microsoft.Quantum.Simulation.Common.SimulatorBase"/>'s
+            <c>OnOperationEnd</c> event.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer.GetQubitRegister(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            Retrieves the <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitRegister"/> associated with the given <see cref="T:Microsoft.Quantum.Simulation.Core.Qubit"/> or create a new
+            one if it doesn't exist.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer.CreateClassicalRegister(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ClassicalRegister"/> and associate it with the given <see cref="T:Microsoft.Quantum.Simulation.Core.Qubit"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer.GetClassicalRegister(Microsoft.Quantum.Simulation.Core.Qubit)">
+            <summary>
+            Retrieves the most recent <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ClassicalRegister"/> associated with the given <see cref="T:Microsoft.Quantum.Simulation.Core.Qubit"/>.
+            </summary>
+            <remarks>
+            Currently not used as this is intended for classically-controlled operations.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer.MetadataToOperation(Microsoft.Quantum.Simulation.Core.RuntimeMetadata)">
+            <summary>
+            Parse <see cref="T:Microsoft.Quantum.Simulation.Core.RuntimeMetadata"/> into its corresponding <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Extensions">
+            <summary>
+            Extension methods to be used with and by <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Extensions.WithExecutionPathTracer``1(``0,Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer)">
+            <summary>
+            Attaches <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPathTracer"/> event listeners to the simulator to generate
+            the <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ExecutionPath"/> of the operation performed by the simulator.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Extensions.GetOrCreate``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+            <summary>
+            Gets the value associated with the specified key and creates a new entry with the <c>defaultVal</c> if
+            the key doesn't exist.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Extensions.GetOrCreate``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
+            <summary>
+            Gets the value associated with the specified key and creates a new entry of the default type if
+            the key doesn't exist.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.RegisterType">
+            <summary>
+            Enum for the 2 types of registers: <c>Qubit</c> and <c>Classical</c>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.ExecutionPathTracer.RegisterType.Qubit">
+            <summary>
+            Qubit register that holds a qubit.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Quantum.IQSharp.ExecutionPathTracer.RegisterType.Classical">
+            <summary>
+            Classical register that holds a classical bit.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Register">
+            <summary>
+            Represents a register used by an <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Register.Type">
+            <summary>
+            Type of register.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Register.QId">
+            <summary>
+            Qubit id of register.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Register.CId">
+            <summary>
+            Classical bit id of register. <c>null</c> if register is a qubit register.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitRegister">
+            <summary>
+            Represents a qubit register used by an <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitRegister.#ctor(System.Int32)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitRegister"/> with the given qubit id.
+            </summary>
+            <param name="qId">
+            Id of qubit register.
+            </param>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.QubitRegister.Type">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ClassicalRegister">
+            <summary>
+            Represents a classical register used by an <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.Operation"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ClassicalRegister.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ClassicalRegister"/> with the given qubit id and classical bit id.
+            </summary>
+            <param name="qId">
+            Id of qubit register.
+            </param>
+            <param name="cId">
+            Id of classical register associated with the given qubit id.
+            </param>
+        </member>
+        <member name="P:Microsoft.Quantum.IQSharp.ExecutionPathTracer.ClassicalRegister.Type">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>
