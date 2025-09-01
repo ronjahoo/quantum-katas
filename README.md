@@ -8,9 +8,12 @@ This repository contains **my personal solutions** to the [Microsoft Quantum Kat
 
 ## 🧩 Daily Log
 
-| Day | Kata             | Files changed          | Notes / What I learned         | Status |
-|----:|------------------|------------------------|--------------------------------|--------|
-| 001 | -                | `NuGet.config`,`README.md`, `%USERPROFILE%/`, `Notes/`, `old-README.md`  | Environment and project setup. | ✅ |
+| Day | Kata / Exercises | Status |
+|----:|------------------|--------|
+| 001 | (only the setup)           |   ✅  |
+| 002 | Complex arithmetic 1-3 |   ✅  |
+| 001 | Complex arithmetic 4-5 |   ✅  |
+| 001 | Complex arithmetic 6-7 |   ✅  |
 
 Legend: ✅ completed · 🔄 in progress · ❌ not yet working
 
