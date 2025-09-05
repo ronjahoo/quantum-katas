@@ -14,6 +14,7 @@ This repository contains **my personal solutions** to the [Microsoft Quantum Kat
 | 002 | Complex arithmetic 1-3 |   ✅  |
 | 003 | Complex arithmetic 4-5 |   ✅  |
 | 004 | Complex arithmetic 6-7 |   ✅  |
+| 005 | Complex arithmetic 8 |   ✅  |
 
 Legend: ✅ completed · 🔄 in progress · ❌ not yet working
 
