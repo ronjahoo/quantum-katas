@@ -289,3 +289,11 @@ __pycache__
 
 # BizTalk build output
 build/267DevDivSNKey2048.snk
+
+# nuget restore files
+project.assets.json
+*.nuget.g.props
+*.nuget.g.targets
+*.nupkg.metadata
+*.signature.p7s
+microsoft.quantum.iqsharp/
