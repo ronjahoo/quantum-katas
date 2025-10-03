@@ -291,9 +291,13 @@ __pycache__
 build/267DevDivSNKey2048.snk
 
 # nuget restore files
+%USERPROFILE%/
+**/.dotnet/
+**/.nuget/
+**/tools/.store/
+microsoft.quantum.iqsharp/
 project.assets.json
 *.nuget.g.props
 *.nuget.g.targets
 *.nupkg.metadata
 *.signature.p7s
-microsoft.quantum.iqsharp/
