@@ -9,7 +9,7 @@ This repository contains **my personal solutions** to the [Microsoft Quantum Kat
 ## 🧩 Daily Log
 
 | Day | Kata / Exercises | Status |
-|----:|------------------|--------|
+|-----|------------------|--------|
 | 001 | (only the setup)           |   ✅  |
 | 002 | Complex arithmetic 1-3 |   ✅  |
 | 003 | Complex arithmetic 4-5 |   ✅  |
@@ -21,6 +21,7 @@ This repository contains **my personal solutions** to the [Microsoft Quantum Kat
 | 009 | Complex arithmetic 12 |   ✅  |
 | 010 | Linear algebra 1 |   ✅  |
 | 011 | Linear algebra 2 |   ✅  |
+| 012 | Linear algebra 3 |   ✅  |
 
 Legend: ✅ completed · 🔄 in progress · ❌ not yet working
 
