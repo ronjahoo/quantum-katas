@@ -25,6 +25,7 @@ This repository contains **my personal solutions** to the [Microsoft Quantum Kat
 | 013 | Linear algebra 4 |   ✅  |
 | 014 | Linear algebra 5 |   ✅  |
 | 015 | Linear algebra 6 |   ✅  |
+| 016 | Linear algebra 7 |   ✅  |
 
 Legend: ✅ completed · 🔄 in progress · ❌ not yet working
 
