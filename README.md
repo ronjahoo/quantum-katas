@@ -28,6 +28,7 @@ This repository contains **my personal solutions** to the [Microsoft Quantum Kat
 | 016 | Linear algebra 7 |   ✅  |
 | 017 | Linear algebra 8 |   ✅  |
 | 018 | Linear algebra 9 |   ✅  |
+| 019 | Linear algebra 10 |   ✅  |
 
 Legend: ✅ completed · 🔄 in progress · ❌ not yet working
 
