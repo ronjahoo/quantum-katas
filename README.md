@@ -32,6 +32,7 @@ This repository contains **my personal solutions** to the [Microsoft Quantum Kat
 | 020 | Linear algebra 11 |   ✅  |
 | 021 | Linear algebra 12 |   ✅  |
 | 022 | Linear algebra 13 |   ✅  |
+| 023 | Linear algebra 14 |   ✅  |
 
 Legend: ✅ completed · 🔄 in progress · ❌ not yet working
 
