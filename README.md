@@ -34,6 +34,7 @@ This repository contains **my personal solutions** to the [Microsoft Quantum Kat
 | 022 | Linear algebra 13 |   ✅  |
 | 023 | Linear algebra 14 |   ✅  |
 | 024 | Single qubit gates 1 |   ✅  |
+| 025 | Single qubit gates 2 |   ✅  |
 
 Legend: ✅ completed · 🔄 in progress · ❌ not yet working
 
